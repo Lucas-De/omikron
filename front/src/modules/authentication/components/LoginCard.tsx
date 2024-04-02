@@ -1,6 +1,6 @@
 import { Alert, Button, Card, Flex, Input, Typography } from "antd";
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import logo from "/omikron.png";
+import logo from "/broc.png";
 import { useAuthenticationStore } from "../authentication.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

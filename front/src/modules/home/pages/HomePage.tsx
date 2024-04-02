@@ -1,6 +1,6 @@
 import { Button, Flex, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
-import icon from "/omikron.png";
+import icon from "/broc.png";
 import Sider from "antd/es/layout/Sider";
 import { Outlet, useNavigate } from "react-router";
 import { FireOutlined, PieChartOutlined } from "@ant-design/icons";
@@ -53,7 +53,6 @@ export function HomePage() {
             defaultSelectedKeys={[window.location.pathname]}
             mode="inline"
             theme="dark"
-            inlineCollapsed={false}
             items={items}
             onClick={handleMenuClick}
           />

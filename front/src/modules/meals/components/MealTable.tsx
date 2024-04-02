@@ -1,6 +1,9 @@
-import { Table, Tag, Typography } from "antd";
+import { Button, Flex, Input, Space, Table, Tag, Typography } from "antd";
 import { useMealsStore } from "../meals.store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { MealCreationModal } from "./MealCreationModal";
+import { Meal } from "../meals.model";
 
 const columns = [
   {
@@ -45,7 +48,13 @@ const columns = [
 
 export function MealTable() {
   const meals = useMealsStore((state) => state.meals);
-  const rows = meals.map((m: any) => ({ ...m, key: m.id }));
+  const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const rows = meals
+    .filter((meal: Meal) =>
+      meal.description.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .map((meal: Meal) => ({ ...meal, key: meal.id }));
   const listMeals = useMealsStore((state) => state.listMeals);
 
   useEffect(() => {
@@ -54,8 +63,29 @@ export function MealTable() {
 
   return (
     <>
-      <Typography.Title>Meals</Typography.Title>
-      <Table columns={columns} dataSource={rows} pagination={false} />
+      <Flex justify="space-between" align="center">
+        <Typography.Title>Meals</Typography.Title>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => setShowModal(true)}
+        >
+          Add Meal
+        </Button>
+      </Flex>
+
+      <Space size="small" direction="vertical" style={{ width: "100%" }}>
+        <Input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search..."
+          size="large"
+          prefix={<SearchOutlined />}
+        />
+
+        <Table columns={columns} dataSource={rows} pagination={false} />
+      </Space>
+      <MealCreationModal isOpen={showModal} close={() => setShowModal(false)} />
     </>
   );
 }

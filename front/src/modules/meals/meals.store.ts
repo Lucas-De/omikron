@@ -1,16 +1,20 @@
 import { create } from "zustand";
 import { useAuthenticationStore } from "../authentication/authentication.store";
 import { mealsService } from "./meals.service";
+import { Meal } from "./meals.model";
 
 interface MealState {
-  meals?: any; //TODO : correct type
+  meals: Meal[]; //TODO : correct type
   loading: boolean;
-  listMeals: () => void;
+  processing: boolean;
+  listMeals: () => Promise<void>;
+  createMeal: (description: string) => Promise<void>;
 }
 
 export const useMealsStore = create<MealState>((set) => ({
   meals: [],
   loading: false,
+  processing: false,
 
   async listMeals() {
     set(() => ({ loading: true }));
@@ -18,9 +22,20 @@ export const useMealsStore = create<MealState>((set) => ({
       const userId = useAuthenticationStore.getState().user?.id;
       const meals = await mealsService.list(userId);
       set(() => ({ meals }));
-      set(() => ({ loading: false }));
     } finally {
       set(() => ({ loading: false }));
+    }
+  },
+
+  async createMeal(description: string) {
+    set(() => ({ processing: true }));
+    try {
+      const userId = useAuthenticationStore.getState().user?.id;
+      const date = new Date().toISOString();
+      const meal = await mealsService.create(userId, description, date);
+      set((state) => ({ meals: [meal, ...state.meals] }));
+    } finally {
+      set(() => ({ processing: false }));
     }
   },
 }));
