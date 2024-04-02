@@ -6,7 +6,7 @@ interface AuthenticationState {
   user?: User;
   processing: boolean;
   authenticate: (username: string, password: string) => void;
-  logOut: () => void;
+  logout: () => void;
 }
 
 export const useAuthenticationStore = create<AuthenticationState>((set) => ({
@@ -26,7 +26,7 @@ export const useAuthenticationStore = create<AuthenticationState>((set) => ({
     }
   },
 
-  logOut() {
+  logout() {
     localStorage.removeItem("user");
     set(() => ({ user: undefined }));
     window.open("/login", "_self");

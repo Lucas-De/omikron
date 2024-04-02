@@ -24,12 +24,7 @@ export function LoginCard() {
   };
 
   const errorAlert = errorMessage ? (
-    <Alert
-      message={errorMessage}
-      style={{ width: "100%" }}
-      type="error"
-      closable
-    />
+    <Alert message={errorMessage} style={{ width: "100%" }} type="error" />
   ) : undefined;
 
   return (

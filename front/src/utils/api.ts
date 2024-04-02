@@ -10,7 +10,7 @@ interface ApiOptions {
 
 export async function httpRequest({ method, body, query, path }: ApiOptions) {
   const userToken = useAuthenticationStore.getState().user?.token;
-  const logOut = useAuthenticationStore.getState().logOut;
+  const logout = useAuthenticationStore.getState().logout;
 
   const config: AxiosRequestConfig = {
     method,
@@ -28,7 +28,7 @@ export async function httpRequest({ method, body, query, path }: ApiOptions) {
     const request = await axios.request(config);
     return request.data;
   } catch (e) {
-    if (e instanceof AxiosError && e?.response?.status === 401) logOut();
+    if (e instanceof AxiosError && e?.response?.status === 401) logout();
     else throw e;
   }
 }
