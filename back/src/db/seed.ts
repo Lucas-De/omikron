@@ -4,8 +4,41 @@ import { hashPassword } from 'src/common/helper/crypto.helper';
 import { Meal } from 'src/modules/meals/entities/meal.entity';
 import { dataSourceOptions } from './data-source';
 import { DataSource } from 'typeorm';
+const descriptions = [
+  'burger and fries',
+  'spaghetti carbonara',
+  'chicken stir-fry',
+  'taco salad',
+  'grilled salmon',
+  'vegetable curry',
+  'shrimp scampi',
+  'beef stir-fry',
+  'mushroom risotto',
+  'chicken parmesan',
+  'pad thai',
+  'caprese salad',
+  'steak and potatoes',
+  'vegetable stir-fry',
+  'chicken Caesar salad',
+  'miso soup',
+  'veggie burger',
+  'quesadilla',
+  'pasta primavera',
+  'grilled chicken',
+  'beef tacos',
+  'cauliflower rice bowl',
+  'spinach salad',
+  'sushi rolls',
+  'chili con carne',
+  'roast beef sandwich',
+  'shrimp tacos',
+  'eggplant parmesan',
+  'tomato soup',
+  'fish and chips',
+];
 
 const passwordHash = hashPassword('password');
+faker.seed(123);
 
 function generateUsers(count): User[] {
   const users = [];
@@ -24,9 +57,7 @@ function generateMeals(users): Meal[] {
   for (const user of users) {
     for (let i = 0; i < faker.number.int({ min: 30, max: 50 }); i++) {
       const meal = new Meal();
-      meal.description = faker.lorem
-        .sentence({ min: 10, max: 30 })
-        .slice(0, 400);
+      meal.description = faker.helpers.arrayElement(descriptions);
       meal.calories = faker.number.int({ min: 50, max: 1500 });
       meal.proteins = faker.number.int({ min: 0, max: 80 });
       meal.fats = faker.number.int({ min: 0, max: 80 });
