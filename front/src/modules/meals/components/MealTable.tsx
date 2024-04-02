@@ -17,26 +17,32 @@ const columns = [
     dataIndex: "date",
     key: "date",
     render: (dateString: string) => new Date(dateString).toDateString(),
+    sorter: (a: Meal, b: Meal) =>
+      new Date(a.date).valueOf() - new Date(b.date).valueOf(),
   },
   {
     title: "Calories",
     dataIndex: "calories",
     key: "calories",
+    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
   },
   {
     title: "Protein (g)",
     dataIndex: "proteins",
     key: "proteins",
+    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
   },
   {
     title: "Fat (g)",
     dataIndex: "fats",
     key: "fats",
+    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
   },
   {
     title: "Carbs (g)",
     dataIndex: "carbs",
     key: "carbs",
+    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
   },
   {
     title: "",
@@ -55,6 +61,7 @@ export function MealTable() {
       meal.description.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .map((meal: Meal) => ({ ...meal, key: meal.id }));
+
   const listMeals = useMealsStore((state) => state.listMeals);
 
   useEffect(() => {

@@ -39,7 +39,7 @@ export class MealsService {
     const user = await this.userService.findOne(userId);
     return this.mealRepository.find({
       where: { user },
-      order: { id: 'ASC' },
+      order: { date: 'DESC' },
       take: paginationQuery.limit,
       skip: paginationQuery.offset,
     });
