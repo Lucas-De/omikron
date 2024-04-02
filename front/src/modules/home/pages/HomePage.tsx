@@ -1,16 +1,16 @@
-import { Layout, Menu } from "antd";
+import { Button, Flex, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import icon from "/omikron.png";
 import Sider from "antd/es/layout/Sider";
 import { Outlet, useNavigate } from "react-router";
 import { FireOutlined, PieChartOutlined } from "@ant-design/icons";
+import { useAuthenticationStore } from "../../authentication/authentication.store";
 
 const items = [
   {
     label: "Meals",
     key: "/home/meals",
     icon: <FireOutlined />,
-    isSelected: true,
   },
   {
     label: "Stats",
@@ -21,6 +21,7 @@ const items = [
 
 export function HomePage() {
   const navigate = useNavigate();
+  const logout = useAuthenticationStore((state) => state.logout);
   const handleMenuClick = (item: { key: string }) => {
     navigate(item.key, { replace: true });
   };
@@ -38,12 +39,18 @@ export function HomePage() {
           height: "55px",
         }}
       >
-        <img src={icon} style={{ height: "30px" }} />
+        <Flex align="center" justify="space-between" style={{ width: "100%" }}>
+          <img src={icon} style={{ height: "30px" }} />
+          <Button type="link" style={{ color: "white" }} onClick={logout}>
+            Logout
+          </Button>
+        </Flex>
       </Header>
 
       <Layout style={{ height: "100%" }}>
         <Sider width={250} style={{ borderRight: "1px solid #1e1e1e" }}>
           <Menu
+            defaultSelectedKeys={[window.location.pathname]}
             mode="inline"
             theme="dark"
             inlineCollapsed={false}

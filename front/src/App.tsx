@@ -3,6 +3,7 @@ import { HomePage } from "./modules/home/pages/HomePage";
 import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
 import { useAuthenticationStore } from "./modules/authentication/authentication.store";
 import { MealTable } from "./modules/meals/components/MealTable";
+import { MealStats } from "./modules/meals/components/MealStats";
 
 const PrivateWrapper = () => {
   const isAuthenticated = useAuthenticationStore.getState().user?.token;
@@ -20,7 +21,7 @@ function App() {
       <Route element={<PrivateWrapper />}>
         <Route path="/home" element={<HomePage />}>
           <Route index path="meals" element={<MealTable />}></Route>
-          <Route path="stats" element={<div>TODO</div>}></Route>
+          <Route path="stats" element={<MealStats />}></Route>
         </Route>
       </Route>
 
