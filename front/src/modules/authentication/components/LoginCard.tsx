@@ -37,7 +37,7 @@ export function LoginCard() {
       <Flex align="center" vertical gap={12}>
         <img src={logo} style={{ width: "80%" }} />
         <Typography.Text style={{ margin: "-2px 0px 8px 0px" }}>
-          Track your marcos like pro
+          Track your macros like pro
         </Typography.Text>
 
         {errorAlert}

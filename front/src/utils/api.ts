@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { useAuthenticationStore } from "../modules/authentication/authentication.store";
 
 interface ApiOptions {
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
@@ -8,7 +9,9 @@ interface ApiOptions {
 }
 
 export async function httpRequest({ method, body, query, path }: ApiOptions) {
-  const request = await axios.request({
+  const userToken = useAuthenticationStore.getState().user?.token;
+
+  const config: AxiosRequestConfig = {
     method,
     url: path,
     baseURL: "http://localhost:3000",
@@ -16,8 +19,10 @@ export async function httpRequest({ method, body, query, path }: ApiOptions) {
     params: query,
     headers: {
       "Content-Type": "application/json",
+      Authorization: userToken ? `Bearer ${userToken}` : undefined,
     },
-  });
+  };
 
+  const request = await axios.request(config);
   return request.data;
 }

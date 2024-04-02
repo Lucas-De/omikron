@@ -23,7 +23,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ConfigProvider
       theme={{
         algorithm: theme.darkAlgorithm,
-        token: { colorPrimary: "#f4413b" },
+        token: {
+          colorPrimary: "#f4413b",
+          colorBgBase: "black",
+        },
+        components: {
+          Layout: {
+            bodyBg: "black",
+            headerBg: "black",
+            siderBg: "black",
+          },
+        },
       }}
     >
       <RouterProvider router={router} />
