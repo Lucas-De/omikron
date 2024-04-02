@@ -1,4 +1,6 @@
 body {
   margin: 0px;
   background-color: black;
+  -webkit-user-select: none;
+  user-select: none;
 }

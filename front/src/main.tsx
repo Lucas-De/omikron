@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginPage } from "./modules/login/pages/LoginPage";
+import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
 import { HomePage } from "./modules/home/pages/HomePage";
-import "./modules/common/app.css";
+import "./globals.css";
+import { ConfigProvider, theme } from "antd";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <LoginPage />,
     errorElement: <div>Not found</div>,
   },
@@ -19,6 +20,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        token: { colorPrimary: "#f4413b" },
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
   </React.StrictMode>
 );
