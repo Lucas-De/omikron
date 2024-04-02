@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { useAuthenticationStore } from "../modules/authentication/authentication.store";
 
 interface ApiOptions {
@@ -10,6 +10,7 @@ interface ApiOptions {
 
 export async function httpRequest({ method, body, query, path }: ApiOptions) {
   const userToken = useAuthenticationStore.getState().user?.token;
+  const logOut = useAuthenticationStore.getState().logOut;
 
   const config: AxiosRequestConfig = {
     method,
@@ -23,6 +24,11 @@ export async function httpRequest({ method, body, query, path }: ApiOptions) {
     },
   };
 
-  const request = await axios.request(config);
-  return request.data;
+  try {
+    const request = await axios.request(config);
+    return request.data;
+  } catch (e) {
+    if (e instanceof AxiosError && e?.response?.status === 401) logOut();
+    else throw e;
+  }
 }

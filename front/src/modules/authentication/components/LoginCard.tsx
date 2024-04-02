@@ -17,7 +17,7 @@ export function LoginCard() {
   const handleAuthenticate = async () => {
     try {
       await authenticate(name, password);
-      navigate("/home", { replace: true });
+      navigate("/home/meals", { replace: true });
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : "Unknown error");
     }

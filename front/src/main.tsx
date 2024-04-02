@@ -1,22 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
-import { HomePage } from "./modules/home/pages/HomePage";
+import { BrowserRouter } from "react-router-dom";
+
 import "./globals.css";
 import { ConfigProvider, theme } from "antd";
-
-export const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-    errorElement: <div>Not found</div>,
-  },
-  {
-    path: "/home",
-    element: <HomePage />,
-  },
-]);
+import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -33,10 +21,17 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             headerBg: "black",
             siderBg: "black",
           },
+          Menu: {
+            darkItemBg: "black",
+            darkItemSelectedBg: "rgba(255,255,255,.08)",
+            darkItemHoverBg: "rgba(255,255,255,.04)",
+          },
         },
       }}
     >
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ConfigProvider>
   </React.StrictMode>
 );

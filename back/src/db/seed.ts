@@ -22,7 +22,7 @@ function generateUsers(count): User[] {
 function generateMeals(users): Meal[] {
   const meals = [];
   for (const user of users) {
-    for (let i = 0; i < faker.number.int(8); i++) {
+    for (let i = 0; i < faker.number.int({ min: 30, max: 50 }); i++) {
       const meal = new Meal();
       meal.description = faker.lorem
         .sentence({ min: 10, max: 30 })

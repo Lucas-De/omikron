@@ -6,6 +6,7 @@ interface AuthenticationState {
   user?: User;
   processing: boolean;
   authenticate: (username: string, password: string) => void;
+  logOut: () => void;
 }
 
 export const useAuthenticationStore = create<AuthenticationState>((set) => ({
@@ -23,6 +24,12 @@ export const useAuthenticationStore = create<AuthenticationState>((set) => ({
       set(() => ({ processing: false }));
       throw new Error("Authentication failed");
     }
+  },
+
+  logOut() {
+    localStorage.removeItem("user");
+    set(() => ({ user: undefined }));
+    window.open("/login", "_self");
   },
 }));
 

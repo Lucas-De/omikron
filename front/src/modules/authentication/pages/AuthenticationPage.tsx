@@ -1,18 +1,8 @@
 import { Layout } from "antd";
 import { LoginCard } from "../components/LoginCard";
-import { useNavigate } from "react-router";
-import { useAuthenticationStore } from "../authentication.store";
-import { useEffect } from "react";
 const { Content, Footer } = Layout;
 
 export function LoginPage() {
-  const user = useAuthenticationStore((state) => state.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) navigate("/home", { replace: true });
-  });
-
   return (
     <>
       <Layout
