@@ -5,6 +5,7 @@ export const mealsService = {
     return httpRequest({
       path: `/users/${userId}/meals`,
       method: "GET",
+      query: { limit: 100 },
     });
   },
 };
