@@ -5,7 +5,7 @@ interface ApiOptions {
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   path: string;
   body?: object;
-  query?: { [key: string]: string };
+  query?: { [key: string]: string | number };
 }
 
 export async function httpRequest({ method, body, query, path }: ApiOptions) {
