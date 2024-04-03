@@ -1,0 +1,52 @@
+name: Deploy Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  front:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          branch: main
+          appdir: front
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "omikron-front"
+          heroku_email: "lucas.descause@gmail.com"
+          usedocker: true
+          docker_build_args: |
+            NODE_ENV
+            SECRET_KEY
+        env:
+          NODE_ENV: production
+          VITE_BASE_BACKEND_URL: ${{vars.PROD_API_URL}}
+  back:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          branch: main
+          appdir: back
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "omikron-back"
+          heroku_email: "lucas.descause@gmail.com"
+          usedocker: true
+          docker_build_args: |
+            NODE_ENV
+            SECRET_KEY
+        env:
+          NODE_ENV: production
+          DB_USER: ${{vars.DB_USER}}
+          DB_HOST: ${{vars.DB_HOST}}
+          DB_DB: ${{vars.DB_DB}}
+          DB_PORT: ${{vars.DB_PORT}}
+          DB_SSL: ${{vars.DB_SSL}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          MQ_CONNNEXTION_STRING: ${{secrets.MQ_CONNNEXTION_STRING}}
+          JWT_SECRET: ${{secrets.JWT_SECRET}}
+          OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
