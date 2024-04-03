@@ -20,7 +20,7 @@ jobs:
           usedocker: true
           docker_build_args: |
             NODE_ENV
-            BACKEND_URL
+            VITE_BASE_BACKEND_URL
         env:
           NODE_ENV: production
           VITE_BASE_BACKEND_URL: ${{vars.VITE_BASE_BACKEND_URL}}
