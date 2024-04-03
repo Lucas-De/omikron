@@ -1,5 +1,6 @@
 import { Card, Flex, Statistic, Typography } from "antd";
-import { MealLineChart } from "./MealLineChart";
+import { CaloriesLineChart } from "./CaloriesLineChart";
+import { MacrosLineChart } from "./MacrosLineChart";
 
 export function MealStats() {
   return (
@@ -22,7 +23,15 @@ export function MealStats() {
           </Card>
         </Flex>
         <Card>
-          <MealLineChart />
+          <div>
+            <CaloriesLineChart />
+          </div>
+        </Card>
+
+        <Card>
+          <div>
+            <MacrosLineChart />
+          </div>
         </Card>
       </Flex>
     </div>

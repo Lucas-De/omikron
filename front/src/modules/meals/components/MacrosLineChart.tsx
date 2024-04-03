@@ -39,20 +39,36 @@ export const data = {
   labels,
   datasets: [
     {
-      label: "Dataset 1",
-      data: [12, 12, 14, 188, 122, 12, 199],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      label: "Protein",
+      data: [23, 56, 12, 89, 45, 78, 32],
+      borderColor: "#18b88a",
+      backgroundColor: "#18b88a",
+      cubicInterpolationMode: "monotone",
+    },
+    {
+      label: "Carbs",
+      data: [5, 17, 39, 64, 28, 93, 10],
+      borderColor: "#007aff",
+      backgroundColor: "#007aff",
+      cubicInterpolationMode: "monotone",
+    },
+    {
+      label: "Fat",
+      data: [77, 42, 19, 55, 88, 33, 70],
+      borderColor: "#f19f22",
+      backgroundColor: "#f19f22",
+
+      cubicInterpolationMode: "monotone",
     },
   ],
 };
 
-export function MealLineChart() {
+export function MacrosLineChart() {
   return (
     <Line
       options={options}
       data={data}
-      style={{ height: 300, width: "100%" }}
+      style={{ height: 275, width: "100%" }}
     />
   );
 }
