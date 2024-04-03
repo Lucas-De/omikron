@@ -16,5 +16,6 @@ export const dataSourceOptions: DataSourceOptions = {
 };
 
 console.log(dataSourceOptions);
+console.log(process.env);
 
 export const dataSource = new DataSource(dataSourceOptions);
