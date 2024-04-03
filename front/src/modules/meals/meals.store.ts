@@ -19,7 +19,7 @@ export const useMealsStore = create<MealState>((set) => ({
   async listMeals() {
     set(() => ({ loading: true }));
     try {
-      const userId = useAuthenticationStore.getState().user?.id;
+      const userId = useAuthenticationStore.getState().getUserId();
       const meals = await mealsService.list(userId);
       set(() => ({ meals }));
     } finally {
@@ -30,7 +30,7 @@ export const useMealsStore = create<MealState>((set) => ({
   async createMeal(description: string) {
     set(() => ({ processing: true }));
     try {
-      const userId = useAuthenticationStore.getState().user?.id;
+      const userId = useAuthenticationStore.getState().getUserId();
       const date = new Date().toISOString();
       const meal = await mealsService.create(userId, description, date);
       set((state) => ({ meals: [meal, ...state.meals] }));
