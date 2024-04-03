@@ -18,6 +18,9 @@ jobs:
           heroku_app_name: "omikron-front"
           heroku_email: "lucas.descause@gmail.com"
           usedocker: true
+          docker_build_args: |
+            NODE_ENV
+            VITE_BASE_BACKEND_URL
   back:
     runs-on: ubuntu-latest
     steps:
@@ -30,3 +33,4 @@ jobs:
           heroku_app_name: "omikron-back"
           heroku_email: "lucas.descause@gmail.com"
           usedocker: true
+          docker_build_args: NODE_ENV
