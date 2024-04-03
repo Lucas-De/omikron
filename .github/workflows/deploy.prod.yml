@@ -12,8 +12,17 @@ jobs:
       - name: Log Vars
         shell: bash
         run: |
-          echo "BACKEND_URL: $BACKEND_URL"
-          echo "DB_USER: $DB_USER"
+          echo "BACKEND_URL: $BACKEND_URL -"
+          echo "DB_USER: $DB_USER -"
+          echo "DB_PASSWORD: $DB_PASSWORD -"
+          echo "DB_HOST: $DB_HOST -"
+          echo "DB_DB: $DB_DB -"
+          echo "DB_PORT: $DB_PORT -"
+          echo "DB_SSL: $DB_SSL -"
+          echo "MQ_CONNNEXTION_STRING: $MQ_CONNNEXTION_STRING -"
+          echo "JWT_SECRET: $JWT_SECRET -"
+          echo "OPENAI_API_KEY: $OPENAI_API_KEY -"
+
         env:
           BACKEND_URL: ${{vars.BACKEND_URL}}
           DB_USER: ${{vars.DB_USER}}
