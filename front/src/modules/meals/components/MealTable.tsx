@@ -10,7 +10,8 @@ const columns = [
     title: "Description",
     dataIndex: "description",
     key: "description",
-    render: (description: string) => description.slice(0, 30),
+    render: (description: string) =>
+      description.length > 30 ? description.slice(0, 30) + "..." : description,
   },
   {
     title: "Date",
@@ -25,30 +26,38 @@ const columns = [
     dataIndex: "calories",
     key: "calories",
     sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    render: (value: string) => value || "—",
   },
   {
     title: "Protein (g)",
     dataIndex: "proteins",
     key: "proteins",
     sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    render: (value: string) => value || "—",
   },
   {
     title: "Fat (g)",
     dataIndex: "fats",
     key: "fats",
     sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    render: (value: string) => value || "—",
   },
   {
     title: "Carbs (g)",
     dataIndex: "carbs",
     key: "carbs",
     sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    render: (value: string) => value || "—",
   },
   {
     title: "",
-    key: "tags",
-    dataIndex: "tags",
-    render: () => <Tag color="green">Processed</Tag>,
+    key: "processed",
+    dataIndex: "processed",
+    render: (processed: boolean) => (
+      <Tag color={processed ? "green" : "orange"}>
+        {processed ? "Processed" : "Pending"}
+      </Tag>
+    ),
   },
 ];
 
@@ -60,7 +69,11 @@ export function MealTable() {
     .filter((meal: Meal) =>
       meal.description.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    .map((meal: Meal) => ({ ...meal, key: meal.id }));
+    .map((meal: Meal) => ({
+      ...meal,
+      key: meal.id,
+      processed: meal.calories != null,
+    }));
 
   const listMeals = useMealsStore((state) => state.listMeals);
 
