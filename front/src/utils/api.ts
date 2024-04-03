@@ -9,6 +9,8 @@ interface ApiOptions {
 }
 
 export async function httpRequest({ method, body, query, path }: ApiOptions) {
+  console.log(import.meta.env.VITE_BASE_BACKEND_URL);
+
   const userToken = useAuthenticationStore.getState().user?.token;
   const logout = useAuthenticationStore.getState().logout;
 
