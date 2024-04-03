@@ -21,6 +21,9 @@ jobs:
           docker_build_args: |
             NODE_ENV
             BACKEND_URL
+        env:
+          NODE_ENV: production
+          BACKEND_URL: http://api.omikron.cc
   back:
     runs-on: ubuntu-latest
     steps:
@@ -34,3 +37,5 @@ jobs:
           heroku_email: "lucas.descause@gmail.com"
           usedocker: true
           docker_build_args: NODE_ENV
+        env:
+          NODE_ENV: production
