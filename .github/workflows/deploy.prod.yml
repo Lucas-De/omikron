@@ -41,12 +41,12 @@ jobs:
             SECRET_KEY
         env:
           NODE_ENV: production
-          DB_USER: ${{vars.DB_USER}}
-          DB_HOST: ${{vars.DB_HOST}}
-          DB_DB: ${{vars.DB_DB}}
-          DB_PORT: ${{vars.DB_PORT}}
-          DB_SSL: ${{vars.DB_SSL}}
-          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-          MQ_CONNNEXTION_STRING: ${{secrets.MQ_CONNNEXTION_STRING}}
-          JWT_SECRET: ${{secrets.JWT_SECRET}}
+          DB_USER: ${{vars.PROD_DB_USER}}
+          DB_HOST: ${{vars.PROD_DB_HOST}}
+          DB_DB: ${{vars.PROD_DB_DB}}
+          DB_PORT: ${{vars.PROD_DB_PORT}}
+          DB_SSL: ${{vars.PROD_DB_SSL}}
+          DB_PASSWORD: ${{secrets.PROD_DB_PASSWORD}}
+          MQ_CONNNEXTION_STRING: ${{secrets.PROD_MQ_CONNNEXTION_STRING}}
+          JWT_SECRET: ${{secrets.PROD_JWT_SECRET}}
           OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
