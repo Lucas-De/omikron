@@ -18,6 +18,8 @@ const PublicWrapper = () => {
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
+
       <Route element={<PrivateWrapper />}>
         <Route path="/home" element={<HomePage />}>
           <Route index path="meals" element={<MealTable />}></Route>
