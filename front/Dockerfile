@@ -2,6 +2,7 @@ FROM node:20-alpine AS build
 WORKDIR /usr/app
 
 ARG BACKEND_URL
+RUN echo $BACKEND_URL
 ENV VITE_BASE_BACKEND_URL=$BACKEND_URL
 
 RUN apk add g++ make python3
