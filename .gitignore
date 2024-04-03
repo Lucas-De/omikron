@@ -3,5 +3,6 @@ front/dist
 back/.env
 back/node_modules
 front/node_modules
+**/.DS_Store
 .DS_Store
-front/.env
+
