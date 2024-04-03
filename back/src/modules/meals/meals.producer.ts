@@ -1,6 +1,5 @@
 import { connect, Channel, Connection } from 'amqplib';
 import { Meal } from './entities/meal.entity';
-import { brokerConfig } from 'src/broker/broker.config';
 
 export class MealProducer {
   private readonly MEAL_QUEUE_NAME = 'meal-queue';
@@ -9,7 +8,8 @@ export class MealProducer {
 
   async init() {
     try {
-      this.connection = await connect(brokerConfig);
+      const { MQ_CONNNEXTION_STRING } = process.env;
+      this.connection = await connect(MQ_CONNNEXTION_STRING);
       this.channel = await this.connection.createChannel();
     } catch (error) {
       console.error('Failed to connect to RabbitMQ', error);

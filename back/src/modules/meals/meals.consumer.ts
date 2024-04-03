@@ -1,7 +1,6 @@
 import { connect, Channel, Connection, ConsumeMessage } from 'amqplib';
 import { MealsService } from './meals.service';
 import OpenAI from 'openai';
-import { brokerConfig } from 'src/broker/broker.config';
 
 interface EstimatedMealStats {
   fatGrams: number;
@@ -20,7 +19,8 @@ export class AnalyzedMealConsumer {
 
   async init() {
     try {
-      this.connection = await connect(brokerConfig);
+      const { MQ_CONNNEXTION_STRING } = process.env;
+      this.connection = await connect(MQ_CONNNEXTION_STRING);
       this.channel = await this.connection.createChannel();
       this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       this.startConsuming();
