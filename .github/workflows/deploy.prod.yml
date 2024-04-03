@@ -20,7 +20,7 @@ jobs:
           usedocker: true
           docker_build_args: |
             NODE_ENV
-            VITE_BASE_BACKEND_URL
+            BACKEND_URL
   back:
     runs-on: ubuntu-latest
     steps:
