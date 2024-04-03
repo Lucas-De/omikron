@@ -1,6 +1,7 @@
 import { connect, Channel, Connection, ConsumeMessage } from 'amqplib';
 import { MealsService } from './meals.service';
 import OpenAI from 'openai';
+import { brokerConfig } from 'src/broker/broker.config';
 
 interface EstimatedMealStats {
   fatGrams: number;
@@ -19,12 +20,7 @@ export class AnalyzedMealConsumer {
 
   async init() {
     try {
-      this.connection = await connect({
-        hostname: 'localhost',
-        port: 5672,
-        username: 'user',
-        password: 'password',
-      });
+      this.connection = await connect(brokerConfig);
       this.channel = await this.connection.createChannel();
       this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       this.startConsuming();
@@ -40,7 +36,7 @@ export class AnalyzedMealConsumer {
 
   async getMealStats(description: string): Promise<EstimatedMealStats> {
     const prompt = `Answer only with a JSON that matches \
-    {proteinGrams:number,fatGrams:number,carbGrams:number,calories:number}\
+    {proteinGrams:integer,fatGrams:integer,carbGrams:integer,calories:integer}\
     Estimate the macronutrients and calories of the following meal "${description}\
     If not a meal, answer with JSON {error:true}`;
 

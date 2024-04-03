@@ -15,7 +15,7 @@ export async function httpRequest({ method, body, query, path }: ApiOptions) {
   const config: AxiosRequestConfig = {
     method,
     url: path,
-    baseURL: "http://localhost:3000",
+    baseURL: import.meta.env.VITE_BASE_BACKEND_URL,
     data: body,
     params: query,
     headers: {

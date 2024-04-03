@@ -2,7 +2,7 @@ import { User, UserRole } from 'src/modules/users/entities/user.entity';
 import { faker } from '@faker-js/faker';
 import { hashPassword } from 'src/common/helper/crypto.helper';
 import { Meal } from 'src/modules/meals/entities/meal.entity';
-import { dataSourceOptions } from './data-source';
+import { dataSourceOptions } from './db.config';
 import { DataSource } from 'typeorm';
 const descriptions = [
   'burger and fries',
