@@ -23,7 +23,7 @@ jobs:
             BACKEND_URL
         env:
           NODE_ENV: production
-          BACKEND_URL: ${{vars.BACKEND_URL}}
+          VITE_BASE_BACKEND_URL: ${{vars.VITE_BASE_BACKEND_URL}}
   back:
     runs-on: ubuntu-latest
     steps:
