@@ -18,12 +18,6 @@ jobs:
           heroku_app_name: "omikron-front"
           heroku_email: "lucas.descause@gmail.com"
           usedocker: true
-          docker_build_args: |
-            NODE_ENV
-            SECRET_KEY
-        env:
-          NODE_ENV: production
-          VITE_BASE_BACKEND_URL: ${{vars.PROD_API_URL}}
   back:
     runs-on: ubuntu-latest
     steps:
@@ -36,17 +30,3 @@ jobs:
           heroku_app_name: "omikron-back"
           heroku_email: "lucas.descause@gmail.com"
           usedocker: true
-          docker_build_args: |
-            NODE_ENV
-            SECRET_KEY
-        env:
-          NODE_ENV: production
-          DB_USER: ${{vars.PROD_DB_USER}}
-          DB_HOST: ${{vars.PROD_DB_HOST}}
-          DB_DB: ${{vars.PROD_DB_DB}}
-          DB_PORT: ${{vars.PROD_DB_PORT}}
-          DB_SSL: ${{vars.PROD_DB_SSL}}
-          DB_PASSWORD: ${{secrets.PROD_DB_PASSWORD}}
-          MQ_CONNNEXTION_STRING: ${{secrets.PROD_MQ_CONNNEXTION_STRING}}
-          JWT_SECRET: ${{secrets.PROD_JWT_SECRET}}
-          OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
