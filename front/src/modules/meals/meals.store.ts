@@ -4,7 +4,7 @@ import { mealsService } from "./meals.service";
 import { Meal } from "./meals.model";
 
 interface MealState {
-  meals: Meal[]; //TODO : correct type
+  meals: Meal[];
   loading: boolean;
   processing: boolean;
   listMeals: () => Promise<void>;
@@ -41,6 +41,7 @@ export const useMealsStore = create<MealState>((set, get) => ({
     }
   },
 
+  //TODO: keep polling until meal is analyzed
   async refreshMeal(mealId: number) {
     const userId = useAuthenticationStore.getState().getUserId();
     const refreshedMeal = await mealsService.get(userId, mealId);

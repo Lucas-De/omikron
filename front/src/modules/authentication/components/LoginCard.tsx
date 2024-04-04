@@ -19,7 +19,6 @@ export function LoginCard() {
 
   const handleAuthenticate = async ({ username, password }: LoginFormData) => {
     try {
-      console.log({ username, password });
       await authenticate(username, password);
       navigate("/home/meals", { replace: true });
     } catch (err) {
@@ -45,6 +44,7 @@ export function LoginCard() {
           name="login"
           style={{ width: "100%" }}
           disabled={processing}
+          initialValues={{ remember: true }}
           onFinish={handleAuthenticate}
           autoComplete="off"
           layout="vertical"

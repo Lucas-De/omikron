@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { User } from "./authentication.model";
 import { authService } from "./authentication.service";
+import { AxiosError } from "axios";
 
 interface AuthenticationState {
   user?: User;
@@ -24,7 +25,13 @@ export const useAuthenticationStore = create<AuthenticationState>(
         set(() => ({ processing: false }));
       } catch (err) {
         set(() => ({ processing: false }));
-        throw new Error("Authentication failed");
+        const isAxiosError = err instanceof AxiosError;
+        if (!isAxiosError) throw new Error("Authentication failed");
+
+        const status = err?.response?.status;
+        if (status === 401 || status === 404) {
+          throw new Error("Invalid credentials");
+        }
       }
     },
 
