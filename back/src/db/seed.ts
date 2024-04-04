@@ -40,12 +40,20 @@ const descriptions = [
 const passwordHash = hashPassword('password');
 faker.seed(123);
 
+function getAdminUser() {
+  const user = new User();
+  user.name = 'admin';
+  user.role = UserRole.Admin;
+  user.passwordHash = passwordHash;
+  return user;
+}
+
 function generateUsers(count): User[] {
-  const users = [];
+  const users = [getAdminUser()];
   for (let i = 0; i < count; i++) {
     const user = new User();
     user.name = faker.person.firstName() + faker.person.lastName();
-    user.role = faker.helpers.enumValue(UserRole);
+    user.role = UserRole.Common;
     user.passwordHash = passwordHash;
     users.push(user);
   }

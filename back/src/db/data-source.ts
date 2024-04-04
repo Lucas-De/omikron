@@ -15,7 +15,4 @@ export const dataSourceOptions: DataSourceOptions = {
   ssl: DB_SSL === 'true',
 };
 
-console.log(dataSourceOptions);
-console.log(process.env);
-
 export const dataSource = new DataSource(dataSourceOptions);
