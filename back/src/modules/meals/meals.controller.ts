@@ -17,6 +17,11 @@ export class MealsController {
     return this.mealsService.create(userId, createMealDto);
   }
 
+  @Get('/:mealId')
+  findOne(@Param('mealId') mealId: number) {
+    return this.mealsService.findOne(mealId);
+  }
+
   @Get()
   findAll(
     @Param('userId') userId: number,

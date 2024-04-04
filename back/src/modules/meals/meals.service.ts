@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -43,5 +43,11 @@ export class MealsService {
       take: paginationQuery.limit,
       skip: paginationQuery.offset,
     });
+  }
+
+  async findOne(id: number) {
+    const meal = await this.mealRepository.findOneBy({ id });
+    if (!meal) throw new NotFoundException(`Meal ${id} not found`);
+    return meal;
   }
 }

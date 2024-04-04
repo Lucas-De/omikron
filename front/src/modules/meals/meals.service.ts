@@ -10,6 +10,13 @@ export const mealsService = {
     });
   },
 
+  get(userId: number, mealId: number): Promise<Meal> {
+    return httpRequest({
+      path: `/users/${userId}/meals/${mealId}`,
+      method: "GET",
+    });
+  },
+
   create(userId: number, description: string, date: string): Promise<Meal> {
     return httpRequest({
       path: `/users/${userId}/meals`,

@@ -9,9 +9,10 @@ interface MealState {
   processing: boolean;
   listMeals: () => Promise<void>;
   createMeal: (description: string) => Promise<void>;
+  refreshMeal: (mealId: number) => Promise<void>;
 }
 
-export const useMealsStore = create<MealState>((set) => ({
+export const useMealsStore = create<MealState>((set, get) => ({
   meals: [],
   loading: false,
   processing: false,
@@ -34,8 +35,23 @@ export const useMealsStore = create<MealState>((set) => ({
       const date = new Date().toISOString();
       const meal = await mealsService.create(userId, description, date);
       set((state) => ({ meals: [meal, ...state.meals] }));
+      setTimeout(get().refreshMeal, 4000, meal.id);
     } finally {
       set(() => ({ processing: false }));
     }
+  },
+
+  async refreshMeal(mealId: number) {
+    const userId = useAuthenticationStore.getState().getUserId();
+    const refreshedMeal = await mealsService.get(userId, mealId);
+
+    set((state) => {
+      const index = state.meals.findIndex((m) => (m.id = mealId));
+      const refreshedMeals = structuredClone(state.meals);
+      refreshedMeals[index] = refreshedMeal;
+
+      if (index >= 0) return { meals: refreshedMeals };
+      return {};
+    });
   },
 }));
