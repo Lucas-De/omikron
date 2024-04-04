@@ -1,9 +1,11 @@
-import { Button, Flex, Input, Space, Table, Tag, Typography } from "antd";
+import { Flex, Spin, Table, Tag } from "antd";
 import { useMealsStore } from "../meals.store";
-import { useEffect, useState } from "react";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { MealCreationModal } from "./MealCreationModal";
+import { useEffect } from "react";
 import { Meal } from "../meals.model";
+
+interface Props {
+  searchQuery: string;
+}
 
 const columns = [
   {
@@ -55,16 +57,16 @@ const columns = [
     dataIndex: "processed",
     render: (processed: boolean) => (
       <Tag color={processed ? "green" : "orange"}>
-        {processed ? "Processed" : "Pending"}
+        {processed ? "Processed" : "Analyzing"}
       </Tag>
     ),
   },
 ];
 
-export function MealTable() {
+export function MealTable({ searchQuery }: Props) {
+  const listMeals = useMealsStore((state) => state.listMeals);
+  const loading = useMealsStore((state) => state.loading);
   const meals = useMealsStore((state) => state.meals);
-  const [showModal, setShowModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const rows = meals
     .filter((meal: Meal) =>
       meal.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -75,37 +77,17 @@ export function MealTable() {
       processed: meal.calories != null,
     }));
 
-  const listMeals = useMealsStore((state) => state.listMeals);
-
   useEffect(() => {
     listMeals();
   }, []);
 
-  return (
-    <>
-      <Flex justify="space-between" align="center">
-        <Typography.Title>Meals</Typography.Title>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowModal(true)}
-        >
-          Add Meal
-        </Button>
+  if (loading) {
+    return (
+      <Flex justify="center" style={{ padding: 12 }}>
+        <Spin />
       </Flex>
+    );
+  }
 
-      <Space size="small" direction="vertical" style={{ width: "100%" }}>
-        <Input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search..."
-          size="large"
-          prefix={<SearchOutlined />}
-        />
-
-        <Table columns={columns} dataSource={rows} pagination={false} />
-      </Space>
-      <MealCreationModal isOpen={showModal} close={() => setShowModal(false)} />
-    </>
-  );
+  return <Table columns={columns} dataSource={rows} pagination={false} />;
 }
