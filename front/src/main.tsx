@@ -26,6 +26,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             darkItemSelectedBg: "rgba(255,255,255,.08)",
             darkItemHoverBg: "rgba(255,255,255,.04)",
           },
+          Form: {
+            itemMarginBottom: 12,
+          },
         },
       }}
     >
