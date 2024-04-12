@@ -1,10 +1,6 @@
 import {
-  BrowserRouter,
   Navigate,
-  Outlet,
-  Route,
   RouterProvider,
-  Routes,
   createBrowserRouter,
 } from "react-router-dom";
 import { HomePage } from "./modules/home/pages/HomePage";
