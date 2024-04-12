@@ -27,6 +27,17 @@ interface Props {
   data: MacroDataPoint[];
 }
 
+export function MacrosLineChart(props: Props) {
+  const chartData = formatData(props.data);
+  return (
+    <Line
+      options={options}
+      data={chartData}
+      style={{ height: 275, width: "100%" }}
+    />
+  );
+}
+
 export const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
@@ -40,17 +51,6 @@ export const options: ChartOptions<"line"> = {
   },
 };
 
-export function MacrosLineChart(props: Props) {
-  const chartData = formatData(props.data);
-  return (
-    <Line
-      options={options}
-      data={chartData}
-      style={{ height: 275, width: "100%" }}
-    />
-  );
-}
-
 function formatData(data: MacroDataPoint[]): ChartData<"line"> {
   return {
     labels: data.map((point) => point.label),
@@ -58,8 +58,8 @@ function formatData(data: MacroDataPoint[]): ChartData<"line"> {
       {
         label: "Protein",
         data: data.map((point) => point.proteins ?? 0),
-        borderColor: "#18b88a",
-        backgroundColor: "#18b88a",
+        borderColor: "#d84646",
+        backgroundColor: "#d84646",
         cubicInterpolationMode: "monotone",
       },
       {

@@ -42,7 +42,7 @@ export function MealStats() {
         <Typography.Title level={4}>Calories</Typography.Title>
         <Card>
           <div>
-            <CaloriesLineChart />
+            <CaloriesLineChart data={formattedMacroCounts} />
           </div>
         </Card>
 

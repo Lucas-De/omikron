@@ -11,6 +11,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { MacroDataPoint } from "../analytics.model";
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,21 @@ ChartJS.register(
   Legend
 );
 
+interface Props {
+  data: MacroDataPoint[];
+}
+
+export function CaloriesLineChart(props: Props) {
+  const chartData = formatData(props.data);
+  return (
+    <Line
+      options={options}
+      data={chartData}
+      style={{ height: 275, width: "100%" }}
+    />
+  );
+}
+
 export const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
@@ -32,30 +48,21 @@ export const options: ChartOptions<"line"> = {
     title: {
       display: false,
     },
+    tooltip: { enabled: false },
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-const data: ChartData<"line"> = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [12, 12, 14, 188, 122, 12, 199],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-      cubicInterpolationMode: "monotone",
-    },
-  ],
-};
-
-export function CaloriesLineChart() {
-  return (
-    <Line
-      options={options}
-      data={data}
-      style={{ height: 275, width: "100%" }}
-    />
-  );
+function formatData(data: MacroDataPoint[]): ChartData<"line"> {
+  return {
+    labels: data.map((point) => point.label),
+    datasets: [
+      {
+        label: "Calories",
+        data: data.map((point) => point.calories ?? 0),
+        borderColor: "white",
+        backgroundColor: "white",
+        cubicInterpolationMode: "monotone",
+      },
+    ],
+  };
 }
