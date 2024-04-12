@@ -1,6 +1,8 @@
 import { connect, Channel, Connection, ConsumeMessage } from 'amqplib';
 import { MealsService } from './meals.service';
 import OpenAI from 'openai';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 interface EstimatedMealStats {
   fatGrams: number;

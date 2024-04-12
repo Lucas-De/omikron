@@ -13,8 +13,8 @@ const items = [
     icon: <FireOutlined />,
   },
   {
-    label: "Stats",
-    key: "/home/stats",
+    label: "Analytics",
+    key: "/home/analytics",
     icon: <PieChartOutlined />,
   },
 ];
