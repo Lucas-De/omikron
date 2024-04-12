@@ -64,19 +64,20 @@ function formatData(
   const dict: Record<string, NutrientCount> = {};
 
   const currDate = new Date();
-  for (let i = -DAYS; i < 1; i++) {
-    const date = isoFormat(addDays(currDate, i));
+
+  for (let i = -DAYS; i <= 0; i++) {
+    const date = isoFormat(addDays(currDate, i).toISOString());
     dict[date] = {};
   }
 
   counts.forEach((item) => {
-    const key = isoFormat(new Date(item.date));
+    const key = item.date;
     dict[key] = _.pick(item, ["proteins", "carbs", "fats", "calories"]);
   });
 
   const dataPoints = Object.entries(dict).map(([date, counts]) => ({
     ...counts,
-    label: i18nFormat(new Date(date)),
+    label: i18nFormat(date),
   }));
 
   return dataPoints;

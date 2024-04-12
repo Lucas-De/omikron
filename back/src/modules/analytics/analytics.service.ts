@@ -26,11 +26,11 @@ export class AnalyticsService {
         'sum(meal.proteins) as proteins',
         'sum(meal.fats) as fats',
         'sum(meal.carbs) as carbs',
-        'meal.date as date',
+        "to_char(meal.date,'YYYY-MM-DD')as date",
       ])
       .where('meal.userId = :userId', { userId })
       .andWhere('meal.date > current_date - 7')
-      .groupBy('meal.date')
+      .groupBy("to_char(meal.date,'YYYY-MM-DD')")
       .getRawMany();
 
     return rawCounts.map((row) => ({

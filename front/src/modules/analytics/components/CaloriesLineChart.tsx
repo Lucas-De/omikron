@@ -48,7 +48,7 @@ export const options: ChartOptions<"line"> = {
     title: {
       display: false,
     },
-    tooltip: { enabled: false },
+    tooltip: { displayColors: false },
   },
 };
 

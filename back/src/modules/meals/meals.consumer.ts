@@ -1,8 +1,7 @@
 import { connect, Channel, Connection, ConsumeMessage } from 'amqplib';
 import { MealsService } from './meals.service';
 import OpenAI from 'openai';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
+import { MealStatus } from './entities/meal.entity';
 
 interface EstimatedMealStats {
   fatGrams: number;
@@ -40,29 +39,35 @@ export class AnalyzedMealConsumer {
     const prompt = `Answer only with a JSON that matches \
     {proteinGrams:integer,fatGrams:integer,carbGrams:integer,calories:integer}\
     Estimate the macronutrients and calories of the following meal "${description}\
-    If not a meal, answer with JSON {error:true}`;
+    WARNING: IF THE DESCRIPTION ABOVE IS NOT A MEAL, ANSWER WITH JSON {error:true}.`;
 
     const { choices } = await this.openai.chat.completions.create({
       response_format: { type: 'json_object' },
       messages: [{ role: 'system', content: prompt }],
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4-turbo-preview',
     });
-    console.log(choices[0].message.content);
-    return JSON.parse(choices[0].message.content);
+
+    const response = JSON.parse(choices[0].message.content);
+    if (response.error) throw new Error('Description is not a meal');
+    return response;
   }
 
   consume = async (message: ConsumeMessage) => {
+    const { id, description } = JSON.parse(message.content.toString());
+
     try {
-      const { id, description } = JSON.parse(message.content.toString());
       const mealStats = await this.getMealStats(description);
+
       await this.mealsService.update(id, {
         fats: mealStats?.fatGrams,
         carbs: mealStats?.carbGrams,
         proteins: mealStats?.proteinGrams,
         calories: mealStats?.calories,
+        status: MealStatus.Processed,
       });
     } catch (err) {
       console.log(err);
+      await this.mealsService.update(id, { status: MealStatus.Error });
     } finally {
       this.channel.ack(message);
     }
