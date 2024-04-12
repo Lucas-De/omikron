@@ -1,37 +1,58 @@
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 import { HomePage } from "./modules/home/pages/HomePage";
 import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
 import { useAuthenticationStore } from "./modules/authentication/authentication.store";
 import { MealStats } from "./modules/analytics/components/MealsStats";
 import { MealsView } from "./modules/meals/components/MealsView";
+import { PropsWithChildren } from "react";
 
-const PrivateWrapper = () => {
+const PrivateWrapper = ({ children }: PropsWithChildren) => {
   const isAuthenticated = useAuthenticationStore.getState().user?.token;
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
-const PublicWrapper = () => {
+const PublicWrapper = ({ children }: PropsWithChildren) => {
   const isAuthenticated = useAuthenticationStore.getState().user?.token;
-  return isAuthenticated ? <Navigate to="/home/meals" /> : <Outlet />;
+  return isAuthenticated ? <Navigate to="/home/meals" /> : children;
 };
+
+const router = createBrowserRouter([
+  {
+    path: "/home",
+    element: (
+      <PrivateWrapper>
+        <HomePage />
+      </PrivateWrapper>
+    ),
+    children: [
+      { path: "/home/meals", element: <MealsView /> },
+      { path: "/home/analytics", element: <MealStats /> },
+    ],
+  },
+  {
+    path: "/login",
+    element: (
+      <PublicWrapper>
+        <LoginPage />
+      </PublicWrapper>
+    ),
+  },
+  {
+    path: "*",
+    element: <Navigate to="/home/meals" />,
+  },
+]);
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-
-      <Route element={<PrivateWrapper />}>
-        <Route path="/home" element={<HomePage />}>
-          <Route index path="meals" element={<MealsView />}></Route>
-          <Route path="analytics" element={<MealStats />}></Route>
-        </Route>
-      </Route>
-
-      <Route element={<PublicWrapper />}>
-        <Route path="/login" element={<LoginPage />}></Route>
-      </Route>
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
