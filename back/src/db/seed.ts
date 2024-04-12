@@ -1,7 +1,7 @@
 import { User, UserRole } from 'src/modules/users/entities/user.entity';
 import { faker } from '@faker-js/faker';
 import { hashPassword } from 'src/common/helper/crypto.helper';
-import { Meal } from 'src/modules/meals/entities/meal.entity';
+import { Meal, MealStatus } from 'src/modules/meals/entities/meal.entity';
 import { dataSourceOptions } from './data-source';
 import { DataSource } from 'typeorm';
 const descriptions = [
@@ -72,6 +72,7 @@ function generateMeals(users): Meal[] {
       meal.carbs = faker.number.int({ min: 0, max: 120 });
       meal.date = faker.date.recent({ days: 7 }).toISOString();
       meal.user = user;
+      meal.status = MealStatus.Processed;
       meals.push(meal);
     }
   }

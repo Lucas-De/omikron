@@ -1,19 +1,23 @@
-import { IsInt, IsPositive } from 'class-validator';
+import { IsEnum, IsInt, IsPositive } from 'class-validator';
+import { MealStatus } from '../entities/meal.entity';
 
 export class UpdateMealDto {
   @IsPositive()
   @IsInt()
-  calories: number;
+  calories?: number;
 
   @IsPositive()
   @IsInt()
-  proteins: number;
+  proteins?: number;
 
   @IsPositive()
   @IsInt()
-  carbs: number;
+  carbs?: number;
 
   @IsPositive()
   @IsInt()
-  fats: number;
+  fats?: number;
+
+  @IsEnum(MealStatus)
+  status?: MealStatus;
 }

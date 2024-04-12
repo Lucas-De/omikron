@@ -1,6 +1,12 @@
 import { User } from 'src/modules/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum MealStatus {
+  Pending = 'PENDING',
+  Processed = 'PROCESSED',
+  Error = 'ERROR',
+}
+
 @Entity()
 export class Meal {
   @PrimaryGeneratedColumn()
@@ -9,7 +15,7 @@ export class Meal {
   @Column({ type: 'varchar', length: 400 })
   description: string;
 
-  @Column({ type: 'date', nullable: false })
+  @Column({ type: 'timestamp', nullable: false })
   date: string;
 
   @Column({ type: 'int', nullable: true })
@@ -23,6 +29,9 @@ export class Meal {
 
   @Column({ type: 'int', nullable: true })
   fats: number;
+
+  @Column({ type: 'enum', enum: MealStatus, default: MealStatus.Pending })
+  status: MealStatus;
 
   @ManyToOne(() => User, (user) => user.meals, { onDelete: 'CASCADE' })
   user: User;

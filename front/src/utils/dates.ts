@@ -1,8 +1,7 @@
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
-export const isoFormat = (date: Date) => format(date, "yyyy-MM-dd");
-export const i18nFormat = new Intl.DateTimeFormat("en-US", {
-  weekday: "short",
-  month: "short",
-  day: "numeric",
-}).format;
+export const isoFormat = (utcDateString: string) =>
+  format(parseISO(utcDateString), "yyyy-MM-dd");
+
+export const i18nFormat = (utcDateString: string) =>
+  format(parseISO(utcDateString), "eee, MMM dd");

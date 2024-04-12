@@ -1,7 +1,7 @@
 import { Flex, Spin, Table, Tag } from "antd";
 import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
-import { Meal } from "../meals.model";
+import { Meal, MealStatus } from "../meals.model";
 
 interface Props {
   searchQuery: string;
@@ -27,39 +27,47 @@ const columns = [
     title: "Calories",
     dataIndex: "calories",
     key: "calories",
-    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    sorter: (a: Meal, b: Meal) => (a.calories ?? 0) - (b.calories ?? 0),
     render: (value: string) => value || "—",
   },
   {
     title: "Protein (g)",
     dataIndex: "proteins",
     key: "proteins",
-    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    sorter: (a: Meal, b: Meal) => (a.proteins ?? 0) - (b.proteins ?? 0),
     render: (value: string) => value || "—",
   },
   {
     title: "Fat (g)",
     dataIndex: "fats",
     key: "fats",
-    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    sorter: (a: Meal, b: Meal) => (a.fats ?? 0) - (b.fats ?? 0),
     render: (value: string) => value || "—",
   },
   {
     title: "Carbs (g)",
     dataIndex: "carbs",
     key: "carbs",
-    sorter: (a: Meal, b: Meal) => a.calories - b.calories,
+    sorter: (a: Meal, b: Meal) => (a.carbs ?? 0) - (b.carbs ?? 0),
     render: (value: string) => value || "—",
   },
   {
     title: "",
-    key: "processed",
-    dataIndex: "processed",
-    render: (processed: boolean) => (
-      <Tag color={processed ? "green" : "orange"}>
-        {processed ? "Processed" : "Analyzing"}
-      </Tag>
-    ),
+    key: "status",
+    dataIndex: "status",
+    render: (status: MealStatus) => {
+      let color = "orange";
+      let label = "Analyzing";
+      if (status == MealStatus.Processed) {
+        color = "green";
+        label = "Processed";
+      }
+      if (status == MealStatus.Error) {
+        color = "red";
+        label = "Error";
+      }
+      return <Tag color={color}>{label}</Tag>;
+    },
   },
 ];
 
