@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 import { dataSourceOptions } from 'src/db/data-source';
 import { MealsModule } from './meals/meals.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     HealthCheckModule,
     UsersModule,
     MealsModule,
+    AnalyticsModule,
   ],
 })
 export class AppModule {

@@ -2,7 +2,7 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { HomePage } from "./modules/home/pages/HomePage";
 import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
 import { useAuthenticationStore } from "./modules/authentication/authentication.store";
-import { MealStats } from "./modules/meals/components/MealsStats";
+import { MealStats } from "./modules/analytics/components/MealsStats";
 import { MealsView } from "./modules/meals/components/MealsView";
 
 const PrivateWrapper = () => {
@@ -23,7 +23,7 @@ function App() {
       <Route element={<PrivateWrapper />}>
         <Route path="/home" element={<HomePage />}>
           <Route index path="meals" element={<MealsView />}></Route>
-          <Route path="stats" element={<MealStats />}></Route>
+          <Route path="analytics" element={<MealStats />}></Route>
         </Route>
       </Route>
 

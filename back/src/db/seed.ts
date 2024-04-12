@@ -70,7 +70,7 @@ function generateMeals(users): Meal[] {
       meal.proteins = faker.number.int({ min: 0, max: 80 });
       meal.fats = faker.number.int({ min: 0, max: 80 });
       meal.carbs = faker.number.int({ min: 0, max: 120 });
-      meal.date = faker.date.recent({ days: 12 }).toISOString();
+      meal.date = faker.date.recent({ days: 7 }).toISOString();
       meal.user = user;
       meals.push(meal);
     }
