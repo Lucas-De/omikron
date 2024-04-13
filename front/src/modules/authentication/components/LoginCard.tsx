@@ -16,9 +16,7 @@ export function LoginCard() {
   const navigate = useNavigate();
 
   const processing = useAuthenticationStore((state) => state.processing);
-  const processingGoogle = useAuthenticationStore(
-    (state) => state.processingGoogle
-  );
+  const [processingGoogle, setProcessingGoogle] = useState(false);
 
   const authenticate = useAuthenticationStore((state) => state.authenticate);
   const authenticateWithGoogle = useAuthenticationStore(
@@ -29,6 +27,7 @@ export function LoginCard() {
     setErrorMessage("Google authentication failed");
   };
   const handleAuthenticateWithGoogle = async (res: CredentialResponse) => {
+    setProcessingGoogle(true);
     if (!res.credential) return handleGoogleAuthError();
     await authenticateWithGoogle(res.credential);
     navigate("/home/meals", { replace: true });

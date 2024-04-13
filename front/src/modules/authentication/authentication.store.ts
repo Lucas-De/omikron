@@ -6,9 +6,8 @@ import { AxiosError } from "axios";
 interface AuthenticationState {
   user?: User;
   processing: boolean;
-  processingGoogle: boolean;
-  authenticateWithGoogle: (credential: string) => void;
   authenticate: (email: string, password: string) => void;
+  authenticateWithGoogle: (credential: string) => void;
   logout: () => void;
   getUserId: () => number;
 }
@@ -17,7 +16,6 @@ export const useAuthenticationStore = create<AuthenticationState>(
   (set, get) => ({
     user: getLocalStorageUser(),
     processing: false,
-    processingGoogle: false,
 
     async authenticate(email: string, password: string) {
       set(() => ({ processing: true }));
@@ -39,14 +37,11 @@ export const useAuthenticationStore = create<AuthenticationState>(
     },
 
     async authenticateWithGoogle(credential: string) {
-      set(() => ({ processingGoogle: true }));
       try {
         const user = await authService.signInWithGoogle(credential);
         setLocalStorageUser(user);
         set(() => ({ user }));
-        set(() => ({ processingGoogle: false }));
       } catch (err) {
-        set(() => ({ processingGoogle: false }));
         throw new Error("Authentication failed");
       }
     },
