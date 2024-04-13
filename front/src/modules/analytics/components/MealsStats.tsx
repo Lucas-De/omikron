@@ -85,6 +85,8 @@ function formatData(
 
 function getAvgDailyCounts(counts: NutrientCount[]): NutrientCount {
   const avg: NutrientCount = {};
-  MACROS.forEach((macro) => (avg[macro] = Math.round(_.meanBy(counts, macro))));
+  MACROS.forEach(
+    (macro) => (avg[macro] = Math.round(_.meanBy(counts, macro)) || 0)
+  );
   return avg;
 }
