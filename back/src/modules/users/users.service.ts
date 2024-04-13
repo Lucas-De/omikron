@@ -14,7 +14,7 @@ export class UsersService {
 
   async findAll(paginationQuery: PaginationQueryDto) {
     return await this.usersRepository.find({
-      select: ['id', 'name'],
+      select: ['id', 'email'],
       order: { id: 'ASC' },
       take: paginationQuery.limit,
       skip: paginationQuery.offset,
@@ -23,7 +23,7 @@ export class UsersService {
 
   async findOne(id: number) {
     const user = await this.usersRepository.findOne({
-      select: ['id', 'name'],
+      select: ['id', 'email'],
       where: { id },
     });
     if (!user) throw new NotFoundException(`User ${id} not found`);

@@ -1,5 +1,6 @@
 import {
-  IsAlphanumeric,
+  IsEmail,
+  IsString,
   IsStrongPassword,
   MaxLength,
   MinLength,
@@ -16,8 +17,16 @@ export class SignUpDto {
   @MaxLength(20)
   password: string;
 
+  @IsEmail()
+  email: string;
+
+  @IsString()
   @MinLength(2)
-  @MaxLength(100)
-  @IsAlphanumeric()
-  name: string;
+  @MaxLength(20)
+  firstName: string;
+
+  @IsString()
+  @MinLength(2)
+  @MaxLength(20)
+  lastName: string;
 }

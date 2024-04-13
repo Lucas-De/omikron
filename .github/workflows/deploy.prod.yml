@@ -21,9 +21,11 @@ jobs:
           docker_build_args: |
             NODE_ENV
             VITE_BASE_BACKEND_URL
+            GOOGLE_CLIENT_ID
         env:
           NODE_ENV: production
           VITE_BASE_BACKEND_URL: ${{vars.VITE_BASE_BACKEND_URL}}
+          GOOGLE_CLIENT_ID: ${{vars.GOOGLE_CLIENT_ID}}
   back:
     runs-on: ubuntu-latest
     steps:
@@ -48,3 +50,4 @@ jobs:
           HD_MQ_CONNNEXTION_STRING: ${{secrets.MQ_CONNNEXTION_STRING}}
           HD_JWT_SECRET: ${{secrets.JWT_SECRET}}
           HD_OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+          HD_GOOGLE_CLIENT_ID: ${{vars.GOOGLE_CLIENT_ID}}
