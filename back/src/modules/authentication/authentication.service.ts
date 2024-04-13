@@ -1,5 +1,6 @@
 import {
   HttpException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -8,57 +9,77 @@ import { hashPassword, verifyPassword } from 'src/common/helper/crypto.helper';
 import { sign } from 'jsonwebtoken';
 import { Equal, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User, UserRole } from '../users/entities/user.entity';
-import { SignUpDto } from './dto/sign-up.dto';
+import { User } from '../users/entities/user.entity';
+import { OAuth2Client } from 'google-auth-library';
+import { SignInWithGoogleDto } from './dto/sign-in-with-google.dto';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @Inject('GOOGLE_AUTH')
+    private oAuth2Client: OAuth2Client,
   ) {}
 
-  async signUpUser(signUpDto: SignUpDto) {
-    const existingUser = await this.findUserByName(signUpDto.name);
+  async signUpUser(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password?: string,
+  ) {
+    const existingUser = await this.findUserByEmail(email);
 
     if (existingUser) {
-      throw new HttpException(`User "${signUpDto.name}" already exists`, 409);
+      throw new HttpException(`User "${email}" already exists`, 409);
     }
 
-    const savedUser = await this.usersRepository.save({
-      name: signUpDto.name,
-      role: UserRole.Common,
-      passwordHash: hashPassword(signUpDto.password),
+    const user = await this.usersRepository.save({
+      firstName,
+      lastName,
+      email: email,
+      passwordHash: password ? hashPassword(password) : null,
     });
 
-    return await this.getSignInInfo(savedUser.name, signUpDto.password);
+    return this.generateToken(user.id, user.role, user.email);
   }
 
-  async getSignInInfo(name: string, password: string) {
-    const user = await this.findUserByName(name);
-    if (!user) throw new NotFoundException(`User "${name}" not found`);
+  async getSignInInfo(email: string, password: string) {
+    const user = await this.findUserByEmail(email);
+    if (!user) throw new NotFoundException(`User ${email} not found`);
 
     const isPasswordCorrect = verifyPassword(password, user.passwordHash);
     if (!isPasswordCorrect) throw new UnauthorizedException();
-
-    const token = sign(
-      { sub: user.id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '30d' },
-    );
-
-    return {
-      id: user.id,
-      name: user.name,
-      role: user.role,
-      token,
-    };
+    return this.generateToken(user.id, user.role, user.email);
   }
 
-  async findUserByName(name: string) {
-    return await this.usersRepository.findOne({
-      select: ['id', 'passwordHash', 'role', 'name'],
-      where: { name: Equal(name) },
+  async generateToken(id, role, email) {
+    const token = sign({ sub: id, role, email }, process.env.JWT_SECRET, {
+      expiresIn: '30d',
     });
+
+    return { id, email, role, token };
+  }
+
+  async findUserByEmail(email: string) {
+    return await this.usersRepository.findOne({
+      select: ['id', 'passwordHash', 'role', 'email'],
+      where: { email: Equal(email) },
+    });
+  }
+
+  async signInWithGoolge(signWithGoogleInDto: SignInWithGoogleDto) {
+    const loginTicket = await this.oAuth2Client.verifyIdToken({
+      idToken: signWithGoogleInDto.credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const { given_name, family_name, email } = loginTicket.getPayload();
+
+    const user = await this.findUserByEmail(email);
+
+    return user
+      ? this.generateToken(user.id, user.role, user.email)
+      : await this.signUpUser(given_name, family_name, email);
   }
 }

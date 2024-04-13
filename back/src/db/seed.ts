@@ -42,7 +42,9 @@ faker.seed(123);
 
 function getAdminUser() {
   const user = new User();
-  user.name = 'admin';
+  user.email = 'admin@admin.com';
+  user.firstName = 'Admin';
+  user.lastName = 'Admin';
   user.role = UserRole.Admin;
   user.passwordHash = passwordHash;
   return user;
@@ -52,7 +54,9 @@ function generateUsers(count): User[] {
   const users = [getAdminUser()];
   for (let i = 0; i < count; i++) {
     const user = new User();
-    user.name = faker.person.firstName() + faker.person.lastName();
+    user.email = faker.internet.email();
+    user.firstName = faker.person.firstName();
+    user.lastName = faker.person.lastName();
     user.role = UserRole.Common;
     user.passwordHash = passwordHash;
     users.push(user);

@@ -5,6 +5,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from './authentication.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/entities/user.entity';
+import { OAuth2Client } from 'google-auth-library';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
@@ -13,6 +14,10 @@ import { User } from '../users/entities/user.entity';
     {
       provide: APP_GUARD,
       useClass: AuthenticationGuard,
+    },
+    {
+      provide: 'GOOGLE_AUTH',
+      useValue: new OAuth2Client(),
     },
   ],
   controllers: [AuthenticationController],
