@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Flex, Form, Input, Typography } from "antd";
+import { Alert, Button, Card, Flex, Form, Input, Spin, Typography } from "antd";
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
 import logo from "/broc.png";
 import { useAuthenticationStore } from "../authentication.store";
@@ -16,6 +16,10 @@ export function LoginCard() {
   const navigate = useNavigate();
 
   const processing = useAuthenticationStore((state) => state.processing);
+  const processingGoogle = useAuthenticationStore(
+    (state) => state.processingGoogle
+  );
+
   const authenticate = useAuthenticationStore((state) => state.authenticate);
   const authenticateWithGoogle = useAuthenticationStore(
     (state) => state.authenticateWithGoogle
@@ -43,48 +47,35 @@ export function LoginCard() {
     <Alert message={errorMessage} style={{ width: "100%" }} type="error" />
   ) : undefined;
 
-  return (
-    <Card style={{ maxWidth: "350px", width: "100%" }}>
-      <Flex align="center" vertical gap={12}>
-        <img src={logo} style={{ width: "80%" }} />
-        <Typography.Text style={{ margin: "-2px 0px 8px 0px" }}>
-          Track your macros like pro
-        </Typography.Text>
-        {errorAlert}
-        <Form
-          name="login"
-          style={{ width: "100%" }}
-          disabled={processing}
-          initialValues={{ remember: true }}
-          onFinish={handleAuthenticate}
-          autoComplete="off"
-          layout="vertical"
-          requiredMark={false}
-        >
-          <Form.Item name="email" rules={[{ required: true, message: "" }]}>
-            <Input placeholder="Email" type="email" prefix={<UserOutlined />} />
-          </Form.Item>
-
-          <Form.Item name="password" rules={[{ required: true, message: "" }]}>
-            <Input.Password placeholder="Password" prefix={<KeyOutlined />} />
-          </Form.Item>
-
-          <Form.Item>
-            <Button block type="primary" htmlType="submit">
-              Sign In
-            </Button>
-          </Form.Item>
-        </Form>
-      </Flex>
-
-      <Flex
-        align="center"
-        justify="center"
-        style={{ marginBottom: 12, padding: "8px 0px" }}
+  const loginCardContent = (
+    <Flex align="center" vertical gap={8}>
+      <Form
+        name="login"
+        style={{ width: "100%" }}
+        disabled={processing}
+        initialValues={{ remember: true }}
+        onFinish={handleAuthenticate}
+        autoComplete="off"
+        layout="vertical"
+        requiredMark={false}
       >
+        <Form.Item name="email" rules={[{ required: true, message: "" }]}>
+          <Input placeholder="Email" type="email" prefix={<UserOutlined />} />
+        </Form.Item>
+
+        <Form.Item name="password" rules={[{ required: true, message: "" }]}>
+          <Input.Password placeholder="Password" prefix={<KeyOutlined />} />
+        </Form.Item>
+
+        <Form.Item>
+          <Button block type="primary" htmlType="submit" loading={processing}>
+            Sign In
+          </Button>
+        </Form.Item>
+      </Form>
+      <Flex align="center" justify="center" style={{ marginBottom: 12 }}>
         Or
       </Flex>
-
       <Flex style={{ width: "100%" }} align="center" justify="center">
         <GoogleLogin
           size="medium"
@@ -93,6 +84,25 @@ export function LoginCard() {
           onError={handleGoogleAuthError}
         />
       </Flex>
+    </Flex>
+  );
+
+  const loader = (
+    <Flex justify="center">
+      <Spin />
+    </Flex>
+  );
+
+  return (
+    <Card style={{ maxWidth: "350px", width: "100%" }}>
+      <Flex align="center" vertical gap={12} style={{ marginBottom: 20 }}>
+        <img src={logo} style={{ width: "80%" }} />
+        <Typography.Text style={{ margin: "-2px 0px 8px 0px" }}>
+          Track your macros like pro
+        </Typography.Text>
+        {errorAlert}
+      </Flex>
+      {processingGoogle ? loader : loginCardContent}
     </Card>
   );
 }
