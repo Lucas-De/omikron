@@ -41,6 +41,7 @@ export function MacrosLineChart(props: Props) {
 export const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
+  scales: { y: { min: 0 } },
   plugins: {
     legend: {
       display: false,
