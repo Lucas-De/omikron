@@ -32,6 +32,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "google-auth-library": "^9.7.0",
     "jsonwebtoken": "^9.0.2",
     "nestjs": "^0.0.1",
     "openai": "^4.32.1",

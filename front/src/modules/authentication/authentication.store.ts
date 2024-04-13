@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 interface AuthenticationState {
   user?: User;
   processing: boolean;
+  authenticateWithGoogle: (credential: string) => void;
   authenticate: (username: string, password: string) => void;
   logout: () => void;
   getUserId: () => number;
@@ -32,6 +33,19 @@ export const useAuthenticationStore = create<AuthenticationState>(
         if (status === 401 || status === 404) {
           throw new Error("Invalid credentials");
         }
+      }
+    },
+
+    async authenticateWithGoogle(credential: string) {
+      set(() => ({ processing: true }));
+      try {
+        const user = await authService.signInWithGoogle(credential);
+        setLocalStorageUser(user);
+        set(() => ({ user }));
+        set(() => ({ processing: false }));
+      } catch (err) {
+        set(() => ({ processing: false }));
+        throw new Error("Authentication failed");
       }
     },
 

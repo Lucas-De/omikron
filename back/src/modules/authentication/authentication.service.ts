@@ -1,5 +1,6 @@
 import {
   HttpException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -10,12 +11,16 @@ import { Equal, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User, UserRole } from '../users/entities/user.entity';
 import { SignUpDto } from './dto/sign-up.dto';
+import { OAuth2Client } from 'google-auth-library';
+import { SignInWithGoogleDto } from './dto/sign-in-with-google.dto';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @Inject('GOOGLE_AUTH')
+    private oAuth2Client: OAuth2Client,
   ) {}
 
   async signUpUser(signUpDto: SignUpDto) {
@@ -60,5 +65,14 @@ export class AuthenticationService {
       select: ['id', 'passwordHash', 'role', 'name'],
       where: { name: Equal(name) },
     });
+  }
+
+  async signInWithGoolge(signWithGoogleInDto: SignInWithGoogleDto) {
+    // Verify the id_token, and access the claims.
+    const loginTicket = await this.oAuth2Client.verifyIdToken({
+      idToken: signWithGoogleInDto.credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const { name, email } = loginTicket.getPayload();
   }
 }

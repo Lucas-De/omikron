@@ -9,4 +9,11 @@ export const authService = {
       body: { name, password },
     });
   },
+  signInWithGoogle(credential: string): Promise<User> {
+    return httpRequest({
+      path: "/auth/sign-in/google",
+      method: "POST",
+      body: { credential },
+    });
+  },
 };

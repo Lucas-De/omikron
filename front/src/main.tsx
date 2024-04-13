@@ -4,34 +4,39 @@ import ReactDOM from "react-dom/client";
 import "./globals.css";
 import { ConfigProvider, theme } from "antd";
 import App from "./App";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const antdTheme = {
+  algorithm: theme.darkAlgorithm,
+  token: {
+    colorPrimary: "#4fb27b",
+    colorBgBase: "black",
+  },
+  components: {
+    Layout: {
+      bodyBg: "black",
+      headerBg: "black",
+      siderBg: "black",
+    },
+    Menu: {
+      darkItemBg: "black",
+      darkItemSelectedBg: "rgba(255,255,255,.08)",
+      darkItemHoverBg: "rgba(255,255,255,.04)",
+    },
+    Form: {
+      itemMarginBottom: 12,
+    },
+  },
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        algorithm: theme.darkAlgorithm,
-        token: {
-          colorPrimary: "#4fb27b",
-          colorBgBase: "black",
-        },
-        components: {
-          Layout: {
-            bodyBg: "black",
-            headerBg: "black",
-            siderBg: "black",
-          },
-          Menu: {
-            darkItemBg: "black",
-            darkItemSelectedBg: "rgba(255,255,255,.08)",
-            darkItemHoverBg: "rgba(255,255,255,.04)",
-          },
-          Form: {
-            itemMarginBottom: 12,
-          },
-        },
-      }}
-    >
-      <App />
-    </ConfigProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <ConfigProvider theme={antdTheme}>
+        <App />
+      </ConfigProvider>
+    </GoogleOAuthProvider>
+    ;
   </React.StrictMode>
 );

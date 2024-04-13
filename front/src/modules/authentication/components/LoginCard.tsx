@@ -4,6 +4,7 @@ import logo from "/broc.png";
 import { useAuthenticationStore } from "../authentication.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 interface LoginFormData {
   username: string;
@@ -16,6 +17,9 @@ export function LoginCard() {
 
   const processing = useAuthenticationStore((state) => state.processing);
   const authenticate = useAuthenticationStore((state) => state.authenticate);
+  const authenticateWithGoogle = useAuthenticationStore(
+    (state) => state.authenticateWithGoogle
+  );
 
   const handleAuthenticate = async ({ username, password }: LoginFormData) => {
     try {
@@ -37,9 +41,7 @@ export function LoginCard() {
         <Typography.Text style={{ margin: "-2px 0px 8px 0px" }}>
           Track your macros like pro
         </Typography.Text>
-
         {errorAlert}
-
         <Form
           name="login"
           style={{ width: "100%" }}
@@ -64,6 +66,26 @@ export function LoginCard() {
             </Button>
           </Form.Item>
         </Form>
+      </Flex>
+      <Flex
+        align="center"
+        justify="center"
+        style={{ marginBottom: 12, padding: "8px 0px" }}
+      >
+        Or
+      </Flex>
+      <Flex style={{ width: "100%" }} align="center" justify="center">
+        <GoogleLogin
+          size="medium"
+          width={300}
+          onSuccess={({ credential }) => {
+            if (credential) authenticateWithGoogle(credential);
+            else setErrorMessage("Google authentication failed");
+          }}
+          onError={() => {
+            setErrorMessage("Google authentication failed");
+          }}
+        />
       </Flex>
     </Card>
   );

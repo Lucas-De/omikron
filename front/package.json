@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
+    "@react-oauth/google": "^0.12.1",
     "antd": "^5.16.0",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
