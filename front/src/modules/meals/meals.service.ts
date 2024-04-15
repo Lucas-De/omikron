@@ -17,11 +17,15 @@ export const mealsService = {
     });
   },
 
-  create(userId: number, description: string, date: string): Promise<Meal> {
+  create(
+    userId: number,
+    date: string,
+    options: { description?: string; image?: string }
+  ): Promise<Meal> {
     return httpRequest({
       path: `/users/${userId}/meals`,
       method: "POST",
-      body: { description, date },
+      body: { description: options.description, image: options.image, date },
     });
   },
 };

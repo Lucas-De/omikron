@@ -12,7 +12,7 @@ export class Meal {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 400 })
+  @Column({ type: 'varchar', length: 400, nullable: true })
   description: string;
 
   @Column({ type: 'timestamp', nullable: false })

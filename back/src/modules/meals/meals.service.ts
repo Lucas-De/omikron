@@ -6,7 +6,6 @@ import { Meal } from './entities/meal.entity';
 import { UsersService } from '../users/users.service';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { MealProducer } from './meals.producer';
-import { UpdateMealDto } from './dto/update-meal.dto';
 
 @Injectable()
 export class MealsService {
@@ -20,17 +19,24 @@ export class MealsService {
 
   async create(userId: number, createMealDto: CreateMealDto) {
     const user = await this.userService.findOne(userId);
-    const { id } = await this.mealRepository.save({ ...createMealDto, user });
+
+    const { id } = await this.mealRepository.save({
+      date: createMealDto.date,
+      description: createMealDto.description,
+      user,
+    });
+
     const meal = await this.mealRepository.findOneBy({ id });
-    this.mealProducer.sendMeal(meal); //TODO: revert transaction if cannot publish message
+    //TODO: revert transaction if cannot publish message
+    this.mealProducer.sendMeal({ ...meal, image: createMealDto.image });
     return meal;
   }
 
-  async update(mealId: number, updateMealDto: UpdateMealDto) {
+  async update(mealId: number, meal: Partial<Meal>) {
     await this.mealRepository
       .createQueryBuilder()
       .update(Meal)
-      .set({ ...updateMealDto })
+      .set({ ...meal })
       .where('id = :mealId', { mealId })
       .execute();
   }

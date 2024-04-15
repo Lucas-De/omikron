@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { json } from 'express';
 
 function setupGlobals(app: INestApplication) {
   app.useGlobalPipes(
@@ -32,6 +33,7 @@ async function bootstrap() {
   setupGlobals(app);
   setupSwagger(app);
   app.enableCors();
+  app.use(json({ limit: '5mb' }));
 
   await app.listen(process.env.PORT || 3000);
 }

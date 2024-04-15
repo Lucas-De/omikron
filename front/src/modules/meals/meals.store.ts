@@ -8,8 +8,13 @@ interface MealState {
   loading: boolean;
   processing: boolean;
   listMeals: () => Promise<void>;
-  createMeal: (description: string) => Promise<void>;
+  createMeal: (mealData: CreateMealOptions) => Promise<void>;
   refreshMeal: (mealId: number) => Promise<void>;
+}
+
+interface CreateMealOptions {
+  description?: string;
+  image?: string;
 }
 
 export const useMealsStore = create<MealState>((set, get) => ({
@@ -28,14 +33,19 @@ export const useMealsStore = create<MealState>((set, get) => ({
     }
   },
 
-  async createMeal(description: string) {
+  async createMeal({ description, image }: CreateMealOptions) {
     set(() => ({ processing: true }));
     try {
       const userId = useAuthenticationStore.getState().getUserId();
       const date = new Date().toISOString();
-      const meal = await mealsService.create(userId, description, date);
+      const meal = await mealsService.create(userId, date, {
+        description,
+        image,
+      });
+      console.log(meal);
       set((state) => ({ meals: [meal, ...state.meals] }));
-      setTimeout(get().refreshMeal, 4000, meal.id);
+
+      setTimeout(get().refreshMeal, image ? 12000 : 4000, meal.id);
     } finally {
       set(() => ({ processing: false }));
     }
