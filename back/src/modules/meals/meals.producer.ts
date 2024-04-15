@@ -23,7 +23,6 @@ export class MealProducer {
   async sendMeal(meal: MealWithImage) {
     await this.channel.assertQueue(this.MEAL_QUEUE_NAME, { durable: true });
     const message = Buffer.from(JSON.stringify(meal));
-    console.log('Sending meal to queue');
     this.channel.sendToQueue(this.MEAL_QUEUE_NAME, message, {
       persistent: true,
     });

@@ -2,18 +2,25 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./globals.css";
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider, ThemeConfig, theme } from "antd";
 import App from "./App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-const antdTheme = {
+const antdTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
     colorPrimary: "#4fb27b",
     colorBgBase: "black",
   },
   components: {
+    // Table: {
+    //   headerBg: "black",
+    //   headerSortActiveBg: "black",
+    //   headerSortHoverBg: "black",
+    //   borderColor: "#1e1e1e",
+    //   headerSplitColor: "transparent",
+    // },
     Layout: {
       bodyBg: "black",
       headerBg: "black",

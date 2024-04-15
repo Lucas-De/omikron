@@ -4,3 +4,7 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* .ant-table-tbody .ant-table-cell {
+  background-color: black;
+} */

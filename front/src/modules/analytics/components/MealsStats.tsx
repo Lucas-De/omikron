@@ -6,7 +6,7 @@ import { useAnalyticsStore } from "../analytics.store";
 import { DateNutrientCount, MACROS, NutrientCount } from "../analytics.model";
 import { addDays } from "date-fns";
 import _ from "lodash";
-import { i18nFormat, isoFormat } from "../../../utils/dates";
+import { i18nFormat, isoFormat } from "../../../utils/date";
 
 export function MealStats() {
   const counts = useAnalyticsStore((state) => state.dateNutrientCounts);

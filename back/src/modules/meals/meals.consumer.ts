@@ -80,7 +80,6 @@ export class AnalyzedMealConsumer {
   }
 
   consume = async (message: ConsumeMessage) => {
-    console.log('consuming message');
     const { id, description, image } = JSON.parse(message.content.toString());
     try {
       let mealStats: EstimatedMealStats & { shortMealDescription?: string };
@@ -92,7 +91,6 @@ export class AnalyzedMealConsumer {
         mealStats = await this.getMealStatsFromImage(image);
       }
 
-      console.log(mealStats);
       await this.mealsService.update(id, {
         description: mealStats?.shortMealDescription || description,
         fats: mealStats?.fatGrams,

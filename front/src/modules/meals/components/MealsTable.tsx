@@ -67,7 +67,7 @@ const columns = [
         label = "Processed";
       }
       if (status == MealStatus.Error) {
-        color = "red";
+        color = "error";
         label = "Error";
       }
       return <Tag color={color}>{label}</Tag>;

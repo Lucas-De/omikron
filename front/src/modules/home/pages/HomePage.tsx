@@ -32,16 +32,14 @@ export function HomePage() {
         style={{
           display: "flex",
           alignItems: "center",
-          color: "black",
           padding: "0px 20px",
-          background: "black",
           borderBottom: "1px solid #1e1e1e",
           height: "55px",
         }}
       >
         <Flex align="center" justify="space-between" style={{ width: "100%" }}>
           <img src={icon} style={{ height: "30px" }} />
-          <Button type="link" style={{ color: "white" }} onClick={logout}>
+          <Button type="text" style={{ color: "white" }} onClick={logout}>
             Logout
           </Button>
         </Flex>
