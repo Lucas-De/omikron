@@ -1,6 +1,10 @@
 import { connect, Channel, Connection } from 'amqplib';
 import { Meal } from './entities/meal.entity';
 
+interface MealWithImage extends Meal {
+  image?: string;
+}
+
 export class MealProducer {
   private readonly MEAL_QUEUE_NAME = 'meal-queue';
   private connection: Connection;
@@ -16,9 +20,10 @@ export class MealProducer {
     }
   }
 
-  async sendMeal(meal: Meal) {
+  async sendMeal(meal: MealWithImage) {
     await this.channel.assertQueue(this.MEAL_QUEUE_NAME, { durable: true });
     const message = Buffer.from(JSON.stringify(meal));
+    console.log('Sending meal to queue');
     this.channel.sendToQueue(this.MEAL_QUEUE_NAME, message, {
       persistent: true,
     });

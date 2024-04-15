@@ -14,7 +14,7 @@ interface MealState {
 
 interface CreateMealOptions {
   description?: string;
-  base64Image?: string;
+  image?: string;
 }
 
 export const useMealsStore = create<MealState>((set, get) => ({
@@ -33,19 +33,19 @@ export const useMealsStore = create<MealState>((set, get) => ({
     }
   },
 
-  async createMeal({ description, base64Image }: CreateMealOptions) {
+  async createMeal({ description, image }: CreateMealOptions) {
     set(() => ({ processing: true }));
     try {
       const userId = useAuthenticationStore.getState().getUserId();
       const date = new Date().toISOString();
-      const meal = await mealsService.create(
-        userId,
+      const meal = await mealsService.create(userId, date, {
         description,
-        base64Image,
-        date
-      );
+        image,
+      });
+      console.log(meal);
       set((state) => ({ meals: [meal, ...state.meals] }));
-      setTimeout(get().refreshMeal, 4000, meal.id);
+
+      setTimeout(get().refreshMeal, image ? 12000 : 4000, meal.id);
     } finally {
       set(() => ({ processing: false }));
     }

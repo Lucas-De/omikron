@@ -19,14 +19,13 @@ export const mealsService = {
 
   create(
     userId: number,
-    description: string,
-    base64Image: string,
-    date: string
+    date: string,
+    options: { description?: string; image?: string }
   ): Promise<Meal> {
     return httpRequest({
       path: `/users/${userId}/meals`,
       method: "POST",
-      body: { description, base64Image, date },
+      body: { description: options.description, image: options.image, date },
     });
   },
 };

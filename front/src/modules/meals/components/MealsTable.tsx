@@ -12,8 +12,12 @@ const columns = [
     title: "Description",
     dataIndex: "description",
     key: "description",
-    render: (description: string) =>
-      description.length > 30 ? description.slice(0, 30) + "..." : description,
+    render: (description: string) => {
+      if (!description) return "—";
+      return description.length > 100
+        ? description.slice(0, 100) + "..."
+        : description;
+    },
   },
   {
     title: "Date",
@@ -76,9 +80,12 @@ export function MealTable({ searchQuery }: Props) {
   const loading = useMealsStore((state) => state.loading);
   const meals = useMealsStore((state) => state.meals);
   const rows = meals
-    .filter((meal: Meal) =>
-      meal.description.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    .filter((meal: Meal) => {
+      if (!searchQuery) return true;
+      return meal.description
+        ?.toLowerCase()
+        ?.includes(searchQuery.toLowerCase());
+    })
     .map((meal: Meal) => ({
       ...meal,
       key: meal.id,

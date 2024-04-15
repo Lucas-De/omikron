@@ -35,11 +35,13 @@ export class AnalyzedMealConsumer {
     this.channel.consume(this.MEAL_QUEUE_NAME, this.consume);
   }
 
-  async getMealStats(description: string): Promise<EstimatedMealStats> {
+  async getMealStatsFromDescription(
+    description: string,
+  ): Promise<EstimatedMealStats> {
     const prompt = `Answer only with a JSON that matches \
     {proteinGrams:integer,fatGrams:integer,carbGrams:integer,calories:integer}\
     Estimate the macronutrients and calories of the following meal "${description}\
-    WARNING: IF THE DESCRIPTION ABOVE IS NOT A MEAL, ANSWER WITH JSON {error:true}.`;
+    WARNING: IF THE DESCRIPTION ABOVE IS NOT A MEAL, ANSWER WITH JSON {error:true}`;
 
     const { choices } = await this.openai.chat.completions.create({
       response_format: { type: 'json_object' },
@@ -52,13 +54,47 @@ export class AnalyzedMealConsumer {
     return response;
   }
 
+  async getMealStatsFromImage(image: string): Promise<EstimatedMealStats> {
+    const prompt = `Answer only with a JSON that matches \
+    {proteinGrams:integer,fatGrams:integer,carbGrams:integer,calories:integer, shortMealDescription:string}\
+    Estimate the macronutrients and calories of the meal in the image.
+    WARNING: IF THE IMAGE DOESN'T CONTAIN FOOD, ANSWER WITH JSON {error:true}`;
+
+    const { choices } = await this.openai.chat.completions.create({
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: prompt },
+            { type: 'image_url', image_url: { url: image } },
+          ],
+        },
+      ],
+      model: 'gpt-4-turbo',
+    });
+
+    const response = JSON.parse(choices[0].message.content);
+    if (response.error) throw new Error('Description is not a meal');
+    return response;
+  }
+
   consume = async (message: ConsumeMessage) => {
-    const { id, description } = JSON.parse(message.content.toString());
-
+    console.log('consuming message');
+    const { id, description, image } = JSON.parse(message.content.toString());
     try {
-      const mealStats = await this.getMealStats(description);
+      let mealStats: EstimatedMealStats & { shortMealDescription?: string };
 
+      if (description) {
+        mealStats = await this.getMealStatsFromDescription(description);
+      }
+      if (image) {
+        mealStats = await this.getMealStatsFromImage(image);
+      }
+
+      console.log(mealStats);
       await this.mealsService.update(id, {
+        description: mealStats?.shortMealDescription || description,
         fats: mealStats?.fatGrams,
         carbs: mealStats?.carbGrams,
         proteins: mealStats?.proteinGrams,
