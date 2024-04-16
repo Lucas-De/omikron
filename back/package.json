@@ -18,6 +18,9 @@
     "db:seed": "node dist/db/seed.js",
     "docker:build": "docker build . -t back",
     "docker:run": "docker run -p 3000:3000 --env-file .env back",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
