@@ -1,3 +1,4 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import 'dotenv/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
@@ -10,9 +11,13 @@ export const dataSourceOptions: DataSourceOptions = {
   password: DB_PASSWORD,
   database: DB_DB,
   synchronize: false,
-  entities: ['dist/**/*.entity.js'],
   migrations: ['dist/db/migrations/*.js'],
   ssl: DB_SSL === 'true',
+};
+
+export const typeOrmModuleOptions: TypeOrmModuleOptions = {
+  ...dataSourceOptions,
+  autoLoadEntities: true,
 };
 
 export const dataSource = new DataSource(dataSourceOptions);
