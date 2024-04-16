@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Meal } from './entities/meal.entity';
 import { UsersService } from '../users/users.service';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { MealProducer } from './meals.producer';
+import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 @Injectable()
 export class MealsService {

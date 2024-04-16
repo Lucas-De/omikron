@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { CreateMealDto } from './dto/create-meal.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 @ApiTags('Meals')
 @Controller('users/:userId/meals')
