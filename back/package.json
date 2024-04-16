@@ -17,7 +17,8 @@
     "migration:run": "typeorm migration:run -d dist/db/data-source.js",
     "db:seed": "node dist/db/seed.js",
     "docker:build": "docker build . -t back",
-    "docker:run": "docker run -p 3000:3000 --env-file .env back"
+    "docker:run": "docker run -p 3000:3000 --env-file .env back",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
