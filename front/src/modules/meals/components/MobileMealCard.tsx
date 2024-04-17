@@ -29,7 +29,7 @@ export function MobileMealCard({ meal }: Props) {
     <>
       <Card style={{ padding: 0 }}>
         <Typography.Paragraph ellipsis={{ rows: 2 }}>
-          {meal.description}
+          {meal.description || "Unknown meal"}
         </Typography.Paragraph>
 
         <div className="nutrients">
@@ -42,7 +42,7 @@ export function MobileMealCard({ meal }: Props) {
                 >
                   {n.label}
                 </Typography.Text>
-                <div>{n.value}</div>
+                <div>{n.value ?? "—"}</div>
               </div>
             ))}
           </Flex>
