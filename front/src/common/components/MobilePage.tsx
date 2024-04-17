@@ -35,7 +35,7 @@ export function MobilePage(props: Props) {
   );
 
   const title = props.title && (
-    <Typography.Title>{props.title}</Typography.Title>
+    <Typography.Title level={2}>{props.title}</Typography.Title>
   );
 
   if (props.loading) return loaderPage;

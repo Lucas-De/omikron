@@ -6,6 +6,7 @@ import {
 import { Button, Drawer, Menu } from "antd";
 import { useAuthenticationStore } from "../../modules/authentication/authentication.store";
 import { useNavigate } from "react-router-dom";
+import icon from "/broc.png";
 
 interface Props {
   isOpen: boolean;
@@ -30,6 +31,7 @@ export function DrawerMenu({ isOpen, close }: Props) {
   ];
 
   const handleMenuClick = ({ key }: { key: string }) => {
+    close();
     navigate(key, { replace: true });
   };
 
@@ -53,6 +55,7 @@ export function DrawerMenu({ isOpen, close }: Props) {
       onClose={close}
       footer={footer}
     >
+      <img src={icon} style={{ marginLeft: 12, marginBottom: 8, height: 25 }} />
       <Menu
         defaultSelectedKeys={[window.location.pathname]}
         mode="inline"

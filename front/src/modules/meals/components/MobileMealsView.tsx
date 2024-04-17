@@ -1,9 +1,9 @@
 import { Space, Typography } from "antd";
 import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
-import { MobileMealCard } from "../components/MobileMealCard";
+import { MobileMealCard } from "./MobileMealCard";
 import { MobilePage } from "../../../common/components/MobilePage";
-import { MealCreationButton } from "../components/MealCreationButton";
+import { MealCreationButton } from "./MealCreationButton";
 
 export function MobileMealsPage() {
   const listMeals = useMealsStore((state) => state.listMeals);

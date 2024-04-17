@@ -3,7 +3,8 @@ body {
   background-color: black;
   -webkit-user-select: none;
   user-select: none;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .ant-drawer-content {

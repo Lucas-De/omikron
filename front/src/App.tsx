@@ -6,12 +6,13 @@ import {
 import { HomePage } from "./modules/home/pages/HomePage";
 import { LoginPage } from "./modules/authentication/pages/AuthenticationPage";
 import { useAuthenticationStore } from "./modules/authentication/authentication.store";
-import { MealStats } from "./modules/analytics/components/MealsStats";
+import { MealStats } from "./modules/analytics/components/AnalyticsView";
 import { MealsView } from "./modules/meals/components/MealsView";
 import { PropsWithChildren } from "react";
 import { isMobile } from "./utils/device";
-import { MobileMealsPage } from "./modules/meals/pages/MobileMealsPage";
+import { MobileMealsPage } from "./modules/meals/components/MobileMealsView";
 import { MobileHomePage } from "./modules/home/pages/MobileHomePage";
+import { MobileAnalyticsView } from "./modules/analytics/components/MobileAnalyticsView";
 
 const WebWrapper = ({ children }: PropsWithChildren) => {
   document.body.style.overflowY = "hidden";
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/mobile/home/meals" replace /> },
       { path: "/mobile/home/meals", element: <MobileMealsPage /> },
+      { path: "/mobile/home/analytics", element: <MobileAnalyticsView /> },
     ],
   },
 

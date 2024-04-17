@@ -12,11 +12,11 @@ export const MobileMenuContext = createContext<Context | undefined>(undefined);
 export function MobileHomePage() {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const openMenu = () => {
-    document.body.style.overflowY = "scroll";
+    document.body.style.overflowY = "hidden";
     setIsMenuVisible(true);
   };
   const closeMenu = () => {
-    document.body.style.overflowY = "hidden";
+    document.body.style.overflowY = "scroll";
     setIsMenuVisible(false);
   };
 
