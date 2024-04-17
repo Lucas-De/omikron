@@ -10,14 +10,15 @@ import { MealStats } from "./modules/analytics/components/MealsStats";
 import { MealsView } from "./modules/meals/components/MealsView";
 import { PropsWithChildren } from "react";
 import { isMobile } from "./utils/device";
-import { HomePageMobile } from "./modules/home/pages/MobileHomePage";
-import { MobileMealsView } from "./modules/meals/components/MobileMealsView";
+import { MobileMealsPage } from "./modules/meals/pages/MobileMealsPage";
 
 const WebWrapper = ({ children }: PropsWithChildren) => {
-  return isMobile() ? <Navigate to="/mobile" replace /> : children;
+  document.body.style.overflow = "hidden";
+  return isMobile() ? <Navigate to="/mobile/meals" replace /> : children;
 };
 
 const MobileWrapper = ({ children }: PropsWithChildren) => {
+  document.body.style.overflow = "scroll";
   return isMobile() ? children : <Navigate to="/home" replace />;
 };
 
@@ -48,21 +49,14 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/mobile",
+    path: "/mobile/meals",
     element: (
       <MobileWrapper>
         <PrivateWrapper>
-          <HomePageMobile />
+          <MobileMealsPage />
         </PrivateWrapper>
       </MobileWrapper>
     ),
-    children: [
-      { index: true, element: <Navigate to="/mobile/meals" replace /> },
-      {
-        path: "/mobile/meals",
-        element: <MobileMealsView />,
-      },
-    ],
   },
 
   {
@@ -73,6 +67,7 @@ const router = createBrowserRouter([
       </PublicWrapper>
     ),
   },
+
   {
     path: "*",
     element: <Navigate to="/home/meals" replace />,

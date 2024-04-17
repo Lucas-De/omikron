@@ -4,12 +4,22 @@ import { PropsWithChildren } from "react";
 interface Props extends PropsWithChildren {
   loading?: boolean;
   title?: string;
-  actionCorner?: React.ReactNode;
+  rightCorner?: React.ReactNode;
+  leftCorner?: React.ReactNode;
 }
 
 export function MobilePage(props: Props) {
+  const displayActionHeader = Boolean(props.rightCorner || props.leftCorner);
+
+  const actionCorner = displayActionHeader && (
+    <Flex justify="space-between">
+      <div>{props.rightCorner}</div>
+      <div>{props.leftCorner}</div>
+    </Flex>
+  );
+
   const loaderPage = (
-    <Flex align="center" justify="center" style={{ height: "100%" }}>
+    <Flex align="center" justify="center" style={{ height: "100vh" }}>
       <Spin spinning={true} />
     </Flex>
   );
@@ -18,15 +28,10 @@ export function MobilePage(props: Props) {
     <Typography.Title>{props.title}</Typography.Title>
   );
 
-  const actionCorner = props.actionCorner && (
-    <Flex justify="flex-end">{props.actionCorner}</Flex>
-  );
-
-  return props.loading ? (
-    loaderPage
-  ) : (
-    <>
+  if (props.loading) return loaderPage;
+  return (
+    <div style={{ padding: 16 }}>
       {actionCorner} {title} {props.children}
-    </>
+    </div>
   );
 }
