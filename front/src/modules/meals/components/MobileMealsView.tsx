@@ -1,4 +1,4 @@
-import { Button, Space } from "antd";
+import { Button, Space, Typography } from "antd";
 import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
 import { MobileMealCard } from "./MobileMealCard";
@@ -27,6 +27,14 @@ export function MobileMealsView() {
     />
   );
 
+  const mealList = (
+    <Space direction="vertical" size="middle">
+      {meals.map((meal) => (
+        <MobileMealCard key={meal.id} meal={meal} />
+      ))}
+    </Space>
+  );
+
   return (
     <>
       <MobilePage
@@ -35,11 +43,13 @@ export function MobileMealsView() {
         leftCorner={addButton}
         rightCorner={logoutButton}
       >
-        <Space direction="vertical" size="middle">
-          {meals.map((meal) => (
-            <MobileMealCard key={meal.id} meal={meal} />
-          ))}
-        </Space>
+        {meals.length ? (
+          mealList
+        ) : (
+          <Typography.Paragraph style={{ color: "grey", marginTop: "-16px" }}>
+            Add meals to get started!
+          </Typography.Paragraph>
+        )}
       </MobilePage>
     </>
   );
