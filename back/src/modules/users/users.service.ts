@@ -12,7 +12,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async findAll(paginationQuery: PaginationQueryDto) {
+  async findAll(paginationQuery: PaginationQueryDto): Promise<Partial<User>[]> {
     return await this.usersRepository.find({
       select: ['id', 'email'],
       order: { id: 'ASC' },
