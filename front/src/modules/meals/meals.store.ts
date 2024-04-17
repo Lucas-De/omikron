@@ -42,7 +42,6 @@ export const useMealsStore = create<MealState>((set, get) => ({
         description,
         image,
       });
-      console.log(meal);
       set((state) => ({ meals: [meal, ...state.meals] }));
 
       setTimeout(get().refreshMeal, image ? 12000 : 4000, meal.id);

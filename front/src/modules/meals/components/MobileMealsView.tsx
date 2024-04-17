@@ -3,6 +3,7 @@ import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
 import { MobileMealCard } from "./MobileMealCard";
 import { MobilePage } from "../../../common/components/MobilePage";
+import { MealCreationButton } from "./MealCreationButton";
 
 export function MobileMealsView() {
   const listMeals = useMealsStore((state) => state.listMeals);
@@ -12,9 +13,11 @@ export function MobileMealsView() {
     listMeals();
   }, []);
 
+  const actionCorner = <MealCreationButton type="mobile" />;
+
   return (
     <>
-      <MobilePage loading={loading} title="Meals">
+      <MobilePage loading={loading} title="Meals" actionCorner={actionCorner}>
         <Space direction="vertical" size="middle">
           {meals.map((meal) => (
             <MobileMealCard key={meal.id} meal={meal} />

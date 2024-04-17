@@ -14,12 +14,10 @@ import { HomePageMobile } from "./modules/home/pages/MobileHomePage";
 import { MobileMealsView } from "./modules/meals/components/MobileMealsView";
 
 const WebWrapper = ({ children }: PropsWithChildren) => {
-  console.log("WebWrapper");
   return isMobile() ? <Navigate to="/mobile" replace /> : children;
 };
 
 const MobileWrapper = ({ children }: PropsWithChildren) => {
-  console.log("MobileWrapper");
   return isMobile() ? children : <Navigate to="/home" replace />;
 };
 
