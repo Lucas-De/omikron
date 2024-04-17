@@ -1,5 +1,7 @@
-import { Flex, Spin, Typography } from "antd";
-import { PropsWithChildren } from "react";
+import { Button, Flex, Spin, Typography } from "antd";
+import { PropsWithChildren, useContext } from "react";
+import { MenuOutlined } from "@ant-design/icons";
+import { MobileMenuContext } from "../../modules/home/pages/MobileHomePage";
 
 interface Props extends PropsWithChildren {
   loading?: boolean;
@@ -9,11 +11,19 @@ interface Props extends PropsWithChildren {
 }
 
 export function MobilePage(props: Props) {
-  const displayActionHeader = Boolean(props.rightCorner || props.leftCorner);
+  const menuContext = useContext(MobileMenuContext);
 
-  const actionCorner = displayActionHeader && (
-    <Flex justify="space-between">
-      <div>{props.rightCorner}</div>
+  const actionCorner = (
+    <Flex justify="space-between" align="center">
+      <div>
+        <Button
+          onClick={menuContext?.openMenu}
+          size="middle"
+          type="text"
+          shape="circle"
+          icon={<MenuOutlined />}
+        />
+      </div>
       <div>{props.leftCorner}</div>
     </Flex>
   );
@@ -25,7 +35,7 @@ export function MobilePage(props: Props) {
   );
 
   const title = props.title && (
-    <Typography.Title>{props.title}</Typography.Title>
+    <Typography.Title level={2}>{props.title}</Typography.Title>
   );
 
   if (props.loading) return loaderPage;
