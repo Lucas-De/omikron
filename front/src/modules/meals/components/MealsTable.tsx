@@ -1,7 +1,8 @@
-import { Flex, Spin, Table, Tag } from "antd";
+import { Flex, Spin, Table } from "antd";
 import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
 import { Meal, MealStatus } from "../meals.model";
+import { MealStatusTag } from "./MealStatus";
 
 interface Props {
   searchQuery: string;
@@ -59,19 +60,7 @@ const columns = [
     title: "",
     key: "status",
     dataIndex: "status",
-    render: (status: MealStatus) => {
-      let color = "orange";
-      let label = "Analyzing";
-      if (status == MealStatus.Processed) {
-        color = "green";
-        label = "Processed";
-      }
-      if (status == MealStatus.Error) {
-        color = "error";
-        label = "Error";
-      }
-      return <Tag color={color}>{label}</Tag>;
-    },
+    render: (status: MealStatus) => <MealStatusTag status={status} />,
   },
 ];
 

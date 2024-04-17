@@ -14,13 +14,6 @@ const antdTheme: ThemeConfig = {
     colorBgBase: "black",
   },
   components: {
-    // Table: {
-    //   headerBg: "black",
-    //   headerSortActiveBg: "black",
-    //   headerSortHoverBg: "black",
-    //   borderColor: "#1e1e1e",
-    //   headerSplitColor: "transparent",
-    // },
     Layout: {
       bodyBg: "black",
       headerBg: "black",
