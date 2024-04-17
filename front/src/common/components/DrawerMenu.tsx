@@ -5,28 +5,33 @@ import {
 } from "@ant-design/icons";
 import { Button, Drawer, Menu } from "antd";
 import { useAuthenticationStore } from "../../modules/authentication/authentication.store";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  close: () => void;
 }
 
-export function DrawerMenu({ isOpen, setIsOpen }: Props) {
-  const close = () => setIsOpen(false);
+export function DrawerMenu({ isOpen, close }: Props) {
+  const navigate = useNavigate();
   const logout = useAuthenticationStore((state) => state.logout);
 
   const items = [
     {
       label: "Meals",
-      key: "/home/meals",
+      key: "/mobile/home/meals",
       icon: <FireOutlined />,
     },
     {
       label: "Analytics",
-      key: "/home/analytics",
+      key: "/mobile/home/analytics",
       icon: <PieChartOutlined />,
     },
   ];
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    navigate(key, { replace: true });
+  };
 
   const footer = (
     <Button
@@ -42,7 +47,6 @@ export function DrawerMenu({ isOpen, setIsOpen }: Props) {
   return (
     <Drawer
       width="80%"
-      title="Basic Drawer"
       placement="left"
       closeIcon={null}
       open={isOpen}
@@ -54,6 +58,7 @@ export function DrawerMenu({ isOpen, setIsOpen }: Props) {
         mode="inline"
         theme="dark"
         items={items}
+        onClick={handleMenuClick}
       />
     </Drawer>
   );

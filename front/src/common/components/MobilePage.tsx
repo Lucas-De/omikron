@@ -1,7 +1,7 @@
 import { Button, Flex, Spin, Typography } from "antd";
-import { PropsWithChildren, useState } from "react";
-import { DrawerMenu } from "./DrawerMenu";
+import { PropsWithChildren, useContext } from "react";
 import { MenuOutlined } from "@ant-design/icons";
+import { MobileMenuContext } from "../../modules/home/pages/MobileHomePage";
 
 interface Props extends PropsWithChildren {
   loading?: boolean;
@@ -11,23 +11,18 @@ interface Props extends PropsWithChildren {
 }
 
 export function MobilePage(props: Props) {
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const setIsOpen = (value: boolean) => {
-    document.body.style.overflowY = value ? "hidden" : "scroll";
-    setIsMenuVisible(value);
-  };
+  const menuContext = useContext(MobileMenuContext);
 
   const actionCorner = (
     <Flex justify="space-between" align="center">
       <div>
         <Button
-          onClick={() => setIsOpen(true)}
+          onClick={menuContext?.openMenu}
           size="middle"
           type="text"
           shape="circle"
           icon={<MenuOutlined />}
         />
-        <DrawerMenu isOpen={isMenuVisible} setIsOpen={setIsOpen} />
       </div>
       <div>{props.leftCorner}</div>
     </Flex>
