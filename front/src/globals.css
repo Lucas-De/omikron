@@ -5,3 +5,17 @@ body {
   user-select: none;
   overflow: hidden;
 }
+
+.ant-drawer-content {
+  background-color: black !important;
+  padding: 0px !important;
+  /* border-right: 1px solid red; */
+}
+
+.ant-drawer-body {
+  padding: 12px !important;
+}
+
+.ant-drawer-mask {
+  background-color: rgba(75, 75, 75, 0.4) !important;
+}
