@@ -1,8 +1,9 @@
-import { Flex, Spin } from "antd";
+import { Flex, Spin, Typography } from "antd";
 import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
   loading?: boolean;
+  title?: string;
 }
 
 export function MobilePage(props: Props) {
@@ -12,5 +13,15 @@ export function MobilePage(props: Props) {
     </Flex>
   );
 
-  return props.loading ? loaderPage : props.children;
+  const title = props.title ? (
+    <Typography.Title>{props.title}</Typography.Title>
+  ) : null;
+
+  return props.loading ? (
+    loaderPage
+  ) : (
+    <>
+      {title} {props.children}
+    </>
+  );
 }

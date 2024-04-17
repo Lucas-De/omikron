@@ -14,7 +14,7 @@ export function MobileMealsView() {
 
   return (
     <>
-      <MobilePage loading={loading}>
+      <MobilePage loading={loading} title="Meals">
         <Space direction="vertical" size="middle">
           {meals.map((meal) => (
             <MobileMealCard key={meal.id} meal={meal} />
