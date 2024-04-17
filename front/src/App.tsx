@@ -13,12 +13,12 @@ import { isMobile } from "./utils/device";
 import { MobileMealsPage } from "./modules/meals/pages/MobileMealsPage";
 
 const WebWrapper = ({ children }: PropsWithChildren) => {
-  document.body.style.overflow = "hidden";
+  document.body.style.overflowY = "hidden";
   return isMobile() ? <Navigate to="/mobile/meals" replace /> : children;
 };
 
 const MobileWrapper = ({ children }: PropsWithChildren) => {
-  document.body.style.overflow = "scroll";
+  document.body.style.overflowY = "scroll";
   return isMobile() ? children : <Navigate to="/home" replace />;
 };
 
