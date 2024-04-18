@@ -1,15 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Alert,
-  Button,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 
 export default function App() {
@@ -18,7 +8,7 @@ export default function App() {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar style="light" />
       <ScrollView>
         <View style={styles.card}>
@@ -38,7 +28,7 @@ export default function App() {
         </View>
         <Text>Open up App.tsx to start working on your app!!!!</Text>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
