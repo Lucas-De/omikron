@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import {
   Alert,
   Button,
+  ScrollView,
   StyleSheet,
   Switch,
   Text,
@@ -17,41 +18,44 @@ export default function App() {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-
-      <Text>Open up App.tsx to start working on your app!!!!</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Type here to translate!"
-        onChangeText={(newText) => setText(newText)}
-        defaultValue={text}
-      />
-      <Button
-        color="#f194ff"
-        title="Press me"
-        onPress={() => Alert.alert("Button pressed")}
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>BUTTON</Text>
-      </TouchableOpacity>
-
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
+      <ScrollView>
+        <View style={styles.card}>
+          <Text>hello world</Text>
+        </View>
+        <View style={styles.card}>
+          <Text>hello world</Text>
+        </View>
+        <View style={styles.card}>
+          <Text>hello world</Text>
+        </View>
+        <View style={styles.card}>
+          <Text>hello world</Text>
+        </View>
+        <View style={styles.card}>
+          <Text>hello world</Text>
+        </View>
+        <Text>Open up App.tsx to start working on your app!!!!</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  card: {
+    width: "100%",
+    height: 300,
+    borderRadius: 10,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "#303030",
+    backgroundColor: "#141414",
+    marginVertical: 8,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },
