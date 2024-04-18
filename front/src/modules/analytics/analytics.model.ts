@@ -2,7 +2,7 @@ export interface DateNutrientCount extends NutrientCount {
   date: string;
 }
 
-export interface MacroDataPoint extends NutrientCount {
+export interface NutrientChartDataPoint extends NutrientCount {
   label: string;
 }
 
