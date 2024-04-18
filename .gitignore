@@ -2,8 +2,9 @@ back/dist
 front/dist
 back/.env
 front/.env
-back/node_modules
-front/node_modules
+
+**/node_modules
 **/.DS_Store
+native/.expo
 .DS_Store
 
