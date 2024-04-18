@@ -11,7 +11,7 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { MacroDataPoint } from "../analytics.model";
+import { NutrientChartDataPoint } from "../analytics.model";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +24,7 @@ ChartJS.register(
 );
 
 interface Props {
-  data: MacroDataPoint[];
+  data: NutrientChartDataPoint[];
 }
 
 export function MacrosLineChart(props: Props) {
@@ -53,7 +53,7 @@ export const options: ChartOptions<"line"> = {
   },
 };
 
-function formatData(data: MacroDataPoint[]): ChartData<"line"> {
+function formatData(data: NutrientChartDataPoint[]): ChartData<"line"> {
   return {
     labels: data.map((point) => point.label),
     datasets: [

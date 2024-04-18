@@ -13,12 +13,8 @@ const columns = [
     title: "Description",
     dataIndex: "description",
     key: "description",
-    render: (description: string) => {
-      if (!description) return "—";
-      return description.length > 100
-        ? description.slice(0, 100) + "..."
-        : description;
-    },
+    width: "30%",
+    ellipsis: true,
   },
   {
     title: "Date",
@@ -40,7 +36,7 @@ const columns = [
     dataIndex: "proteins",
     key: "proteins",
     sorter: (a: Meal, b: Meal) => (a.proteins ?? 0) - (b.proteins ?? 0),
-    render: (value: string) => value || "—",
+    render: (value: string) => <div contentEditable>{value}</div> || "—",
   },
   {
     title: "Fat (g)",

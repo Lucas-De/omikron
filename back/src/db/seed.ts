@@ -85,7 +85,10 @@ function generateMeals(users): Meal[] {
 
 async function seed() {
   const users = generateUsers(10);
-  const myDataSource = new DataSource(dataSourceOptions);
+  const myDataSource = new DataSource({
+    ...dataSourceOptions,
+    entities: ['dist/**/*.entity.js'],
+  });
   await myDataSource.initialize();
   await myDataSource.createQueryBuilder().delete().from(User).execute();
   await myDataSource.manager.save(users);
