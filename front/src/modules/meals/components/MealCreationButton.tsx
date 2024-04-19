@@ -1,4 +1,10 @@
-import { CameraOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  CameraFilled,
+  CameraOutlined,
+  EditFilled,
+  EditOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import { MenuProps, Dropdown, Button } from "antd";
 import { MealCreationModal } from "./MealCreationModal";
 import { useState } from "react";
@@ -26,12 +32,23 @@ export function MealCreationButton({ type }: Props) {
   ];
 
   const mobileButton = (
-    <Button
-      size="middle"
-      type="default"
-      shape="circle"
-      icon={<PlusOutlined />}
-    />
+    <div>
+      <Button
+        className="icon-button-mobile"
+        size="middle"
+        type="primary"
+        shape="circle"
+        icon={<CameraFilled color="black" style={{ color: "black" }} />}
+      />
+
+      <Button
+        className="icon-button-mobile"
+        size="middle"
+        type="primary"
+        shape="circle"
+        icon={<EditFilled color="black" style={{ color: "black" }} />}
+      />
+    </div>
   );
 
   const desktopButton = (
