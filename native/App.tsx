@@ -1,16 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
+  Button,
   FlatList,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View,
 } from "react-native";
 import React, { useState } from "react";
 import MealCard from "./MealCard";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { IconButton } from "react-native-paper";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -19,15 +18,43 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-
-      <TouchableHighlight onPress={() => {}}>
-        <View>
-          <Ionicons name="add-circle" size={32} color="white" />
-        </View>
-      </TouchableHighlight>
+      <StatusBar style="light" translucent={true} />
 
       <ScrollView style={styles.scroller}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            paddingTop: 40,
+            paddingBottom: 8,
+          }}
+        >
+          <Text style={styles.title}>Meals</Text>
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <IconButton
+              icon="camera"
+              iconColor="black"
+              containerColor="white"
+              style={{ height: 36, width: 36, borderRadius: 24 }}
+              size={20}
+              onPress={() => console.log("Pressed")}
+            />
+            <IconButton
+              icon="pen"
+              iconColor="black"
+              containerColor="white"
+              style={{ height: 36, width: 36, borderRadius: 24 }}
+              size={20}
+              onPress={() => console.log("Pressed")}
+            />
+          </View>
+        </View>
         <View>
           <FlatList data={[1, 2, 3]} renderItem={() => <MealCard />} />
         </View>
@@ -39,7 +66,12 @@ export default function App() {
 const styles = StyleSheet.create({
   scroller: {
     width: "100%",
-    paddingTop: 48,
+  },
+
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
   },
 
   container: {
