@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, TextInput, Text, StyleSheet, Modal, Button } from "react-native";
 import { IconButton } from "react-native-paper";
+import { Page } from "../../common/components/Page";
 
 const MAX_LENGTH = 400;
 
@@ -12,7 +13,14 @@ interface Props {
 export function MealDescriptionModal(props: Props) {
   return (
     <Modal animationType="slide" transparent={true} visible={props.isVisible}>
-      <View style={styles.container}>
+      <Page
+        headerOptions={{
+          primaryAction: {
+            label: "Done",
+            action: () => props.setIsVisible(false),
+          },
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -30,14 +38,12 @@ export function MealDescriptionModal(props: Props) {
             size={24}
             onPress={() => props.setIsVisible(false)}
           />
-
           <Button
             title="Done"
             color="white"
             onPress={() => props.setIsVisible(false)}
           />
         </View>
-
         <Text style={styles.guidance}>Enter meal description</Text>
         <TextInput
           autoFocus
@@ -48,7 +54,7 @@ export function MealDescriptionModal(props: Props) {
           style={styles.input}
           placeholderTextColor="dimgrey"
         />
-      </View>
+      </Page>
     </Modal>
   );
 }

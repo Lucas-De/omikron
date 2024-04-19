@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import { IconButton } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import MealCard from "./MealCard";
 import { Page } from "../../common/components/Page";
-import MealCreationButtons from "./MealCreationButtons";
+import ModalPage from "../../common/components/ModalPage";
 
 export default function MealListPage() {
   const [image, setImage] = useState<string | undefined>();
@@ -23,38 +22,28 @@ export default function MealListPage() {
     setImage(result.assets[0].uri);
   };
 
-  const actions = [
-    <IconButton
-      key="camera"
-      icon="camera"
-      iconColor="black"
-      containerColor="white"
-      style={{ height: 36, width: 36, borderRadius: 24 }}
-      size={20}
-      onPress={pickImage}
-    />,
-    <IconButton
-      key="pen"
-      icon="pen"
-      iconColor="black"
-      containerColor="white"
-      style={{ height: 36, width: 36, borderRadius: 24 }}
-      size={20}
-      onPress={() => setIsModalVisible(true)}
-    />,
-  ];
-
   const listOptions = {
-    data: [1, 2, 3],
+    data: [1, 2, 3, 5, 6, 7, 8],
     renderItem: () => <MealCard />,
   };
 
+  const iconActions = [
+    { icon: "camera", action: pickImage },
+    { icon: "pen", action: () => setIsModalVisible(true) },
+  ];
+
   return (
-    <Page
-      title="Meals"
-      primaryAction={<MealCreationButtons />}
-      scrollableListOptions={listOptions}
-    />
+    <>
+      <ModalPage
+        isOpen={isModalVisible}
+        close={() => setIsModalVisible(false)}
+      />
+      <Page
+        title="Meals"
+        headerOptions={{ iconActions }}
+        scrollableListOptions={listOptions}
+      />
+    </>
   );
 }
 
