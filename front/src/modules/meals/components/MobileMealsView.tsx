@@ -3,7 +3,7 @@ import { useMealsStore } from "../meals.store";
 import { useEffect } from "react";
 import { MobileMealCard } from "./MobileMealCard";
 import { MobilePage } from "../../../common/components/MobilePage";
-import { MealCreationButton } from "./MealCreationButton";
+import { MobileMealCreationButton } from "./MobileMealCreationButton";
 
 export function MobileMealsPage() {
   const listMeals = useMealsStore((state) => state.listMeals);
@@ -13,7 +13,7 @@ export function MobileMealsPage() {
     listMeals();
   }, []);
 
-  const addButton = <MealCreationButton type="mobile" />;
+  const addButton = <MobileMealCreationButton />;
 
   const mealList = (
     <Space direction="vertical" size="middle">
