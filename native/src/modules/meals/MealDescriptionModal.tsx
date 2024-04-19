@@ -4,9 +4,14 @@ import { IconButton } from "react-native-paper";
 
 const MAX_LENGTH = 400;
 
-export function Textarea({ isVisible, setIsVisible }) {
+interface Props {
+  isVisible: boolean;
+  setIsVisible: (isVisible: boolean) => void;
+}
+
+export function MealDescriptionModal(props: Props) {
   return (
-    <Modal animationType="slide" transparent={true} visible={isVisible}>
+    <Modal animationType="slide" transparent={true} visible={props.isVisible}>
       <View style={styles.container}>
         <View
           style={{
@@ -23,13 +28,13 @@ export function Textarea({ isVisible, setIsVisible }) {
             rippleColor="transparent"
             style={{ height: 24, width: 24, marginHorizontal: 0 }}
             size={24}
-            onPress={() => setIsVisible(false)}
+            onPress={() => props.setIsVisible(false)}
           />
 
           <Button
             title="Done"
             color="white"
-            onPress={() => setIsVisible(false)}
+            onPress={() => props.setIsVisible(false)}
           />
         </View>
 
