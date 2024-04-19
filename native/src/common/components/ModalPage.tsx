@@ -21,7 +21,9 @@ export default function ModalPage(props: Props) {
       visible={props.isOpen}
       style={{ width: "100%", height: "100%" }}
     >
-      <Page close={props.close} headerOptions={headerOptions}></Page>
+      <Page close={props.close} headerOptions={headerOptions}>
+        {props.children}
+      </Page>
     </Modal>
   );
 }

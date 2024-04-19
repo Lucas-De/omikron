@@ -2,60 +2,29 @@ import React from "react";
 import { View, TextInput, Text, StyleSheet, Modal, Button } from "react-native";
 import { IconButton } from "react-native-paper";
 import { Page } from "../../common/components/Page";
+import ModalPage from "../../common/components/ModalPage";
 
 const MAX_LENGTH = 400;
 
 interface Props {
-  isVisible: boolean;
-  setIsVisible: (isVisible: boolean) => void;
+  isOpen: boolean;
+  close: () => void;
 }
 
 export function MealDescriptionModal(props: Props) {
   return (
-    <Modal animationType="slide" transparent={true} visible={props.isVisible}>
-      <Page
-        headerOptions={{
-          primaryAction: {
-            label: "Done",
-            action: () => props.setIsVisible(false),
-          },
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 20,
-            marginTop: 8,
-          }}
-        >
-          <IconButton
-            icon="close"
-            iconColor="white"
-            rippleColor="transparent"
-            style={{ height: 24, width: 24, marginHorizontal: 0 }}
-            size={24}
-            onPress={() => props.setIsVisible(false)}
-          />
-          <Button
-            title="Done"
-            color="white"
-            onPress={() => props.setIsVisible(false)}
-          />
-        </View>
-        <Text style={styles.guidance}>Enter meal description</Text>
-        <TextInput
-          autoFocus
-          multiline
-          maxLength={MAX_LENGTH}
-          value={undefined}
-          placeholder="Burger and fries..."
-          style={styles.input}
-          placeholderTextColor="dimgrey"
-        />
-      </Page>
-    </Modal>
+    <ModalPage isOpen={props.isOpen} close={props.close}>
+      <Text style={styles.guidance}>Enter meal description</Text>
+      <TextInput
+        autoFocus
+        multiline
+        maxLength={MAX_LENGTH}
+        value={undefined}
+        placeholder="Burger and fries..."
+        style={styles.input}
+        placeholderTextColor="dimgrey"
+      />
+    </ModalPage>
   );
 }
 
@@ -85,5 +54,6 @@ const styles = StyleSheet.create({
   input: {
     height: "100%",
     fontSize: 16,
+    color: "white",
   },
 });

@@ -58,7 +58,7 @@ export function Page(props: Props) {
       icon="close"
       iconColor="white"
       containerColor="transparent"
-      style={{ marginLeft: 12 }}
+      style={{ marginLeft: 8 }}
       size={24}
       onPress={props.close}
     />
@@ -95,7 +95,7 @@ export function Page(props: Props) {
   return (
     <View style={styles.wrapper}>
       {header}
-      <View>{props.children}</View>
+      <View style={styles.children}>{props.children}</View>
     </View>
   );
 }
@@ -124,6 +124,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     width: "100%",
+  },
+
+  children: {
+    paddingHorizontal: 20,
   },
 
   iconButton: { height: 36, width: 36, borderRadius: 24, marginLeft: 4 },

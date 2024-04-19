@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import MealCard from "./MealCard";
 import { Page } from "../../common/components/Page";
 import ModalPage from "../../common/components/ModalPage";
+import { MealDescriptionModal } from "./MealDescriptionModal";
 
 export default function MealListPage() {
   const [image, setImage] = useState<string | undefined>();
@@ -34,7 +35,7 @@ export default function MealListPage() {
 
   return (
     <>
-      <ModalPage
+      <MealDescriptionModal
         isOpen={isModalVisible}
         close={() => setIsModalVisible(false)}
       />
