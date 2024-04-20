@@ -9,6 +9,7 @@ interface Props extends PropsWithChildren {
   done: () => void;
 }
 
+//TODO: refactor: too much inline styles
 export function MobileModal({
   isOpen = false,
   close,

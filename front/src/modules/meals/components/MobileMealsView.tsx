@@ -24,16 +24,14 @@ export function MobileMealsPage() {
   );
 
   return (
-    <>
-      <MobilePage loading={loading} title="Meals" leftCorner={addButton}>
-        {meals.length ? (
-          mealList
-        ) : (
-          <Typography.Paragraph style={{ color: "grey", marginTop: "-16px" }}>
-            Add meals to get started!
-          </Typography.Paragraph>
-        )}
-      </MobilePage>
-    </>
+    <MobilePage loading={loading} title="Meals" leftCorner={addButton}>
+      {meals.length ? (
+        mealList
+      ) : (
+        <Typography.Paragraph style={{ color: "grey", marginTop: "-16px" }}>
+          Add meals to get started!
+        </Typography.Paragraph>
+      )}
+    </MobilePage>
   );
 }

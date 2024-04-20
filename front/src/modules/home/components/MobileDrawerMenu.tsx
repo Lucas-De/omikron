@@ -4,7 +4,7 @@ import {
   PieChartOutlined,
 } from "@ant-design/icons";
 import { Button, Drawer, Menu } from "antd";
-import { useAuthenticationStore } from "../../modules/authentication/authentication.store";
+import { useAuthenticationStore } from "../../authentication/authentication.store";
 import { useNavigate } from "react-router-dom";
 import icon from "/broc.png";
 
@@ -13,7 +13,7 @@ interface Props {
   close: () => void;
 }
 
-export function DrawerMenu({ isOpen, close }: Props) {
+export function MobileDrawerMenu({ isOpen, close }: Props) {
   const navigate = useNavigate();
   const logout = useAuthenticationStore((state) => state.logout);
 

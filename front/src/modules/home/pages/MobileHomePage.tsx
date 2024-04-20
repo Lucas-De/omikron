@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { DrawerMenu } from "../../../common/components/DrawerMenu";
+import { MobileDrawerMenu } from "../components/MobileDrawerMenu";
 
 interface Context {
   openMenu: () => void;
@@ -22,7 +22,7 @@ export function MobileHomePage() {
 
   return (
     <MobileMenuContext.Provider value={{ openMenu, closeMenu }}>
-      <DrawerMenu isOpen={isMenuVisible} close={closeMenu} />
+      <MobileDrawerMenu isOpen={isMenuVisible} close={closeMenu} />
       <Outlet />
     </MobileMenuContext.Provider>
   );

@@ -13,6 +13,7 @@ import { isMobile } from "./utils/device";
 import { MobileMealsPage } from "./modules/meals/components/MobileMealsView";
 import { MobileHomePage } from "./modules/home/pages/MobileHomePage";
 import { MobileAnalyticsView } from "./modules/analytics/components/MobileAnalyticsView";
+import Landing from "./modules/landing/Landing";
 
 const WebWrapper = ({ children }: PropsWithChildren) => {
   document.body.style.overflowY = "hidden";
@@ -26,7 +27,7 @@ const MobileWrapper = ({ children }: PropsWithChildren) => {
 
 const PrivateWrapper = ({ children }: PropsWithChildren) => {
   const isAuthenticated = useAuthenticationStore.getState().user?.token;
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+  return isAuthenticated ? children : <Navigate to="/" replace />;
 };
 
 const PublicWrapper = ({ children }: PropsWithChildren) => {
@@ -77,8 +78,17 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/",
+    element: (
+      <PublicWrapper>
+        <Landing />
+      </PublicWrapper>
+    ),
+  },
+
+  {
     path: "*",
-    element: <Navigate to="/home/meals" replace />,
+    element: <Navigate to="/" replace />,
   },
 ]);
 
