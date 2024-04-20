@@ -29,7 +29,3 @@ body {
   border-width: 0px;
   color: black !important;
 }
-
-*::-webkit-scrollbar {
-  display: none;
-}

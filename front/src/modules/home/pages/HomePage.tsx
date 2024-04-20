@@ -1,6 +1,6 @@
 import { Button, Flex, Layout, Menu } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
-import icon from "/broc.png";
+import icon from "/logo.png";
 import Sider from "antd/es/layout/Sider";
 import { Outlet, useNavigate } from "react-router";
 import { FireOutlined, PieChartOutlined } from "@ant-design/icons";
@@ -38,7 +38,7 @@ export function HomePage() {
         }}
       >
         <Flex align="center" justify="space-between" style={{ width: "100%" }}>
-          <img src={icon} style={{ height: "30px" }} />
+          <img src={icon} style={{ height: 20 }} />
           <Button type="text" style={{ color: "white" }} onClick={logout}>
             Logout
           </Button>

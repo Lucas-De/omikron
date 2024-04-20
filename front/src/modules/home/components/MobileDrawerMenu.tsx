@@ -6,7 +6,7 @@ import {
 import { Button, Drawer, Menu } from "antd";
 import { useAuthenticationStore } from "../../authentication/authentication.store";
 import { useNavigate } from "react-router-dom";
-import icon from "/broc.png";
+import icon from "/logo.png";
 
 interface Props {
   isOpen: boolean;
@@ -55,7 +55,7 @@ export function MobileDrawerMenu({ isOpen, close }: Props) {
       onClose={close}
       footer={footer}
     >
-      <img src={icon} style={{ marginLeft: 12, marginBottom: 8, height: 25 }} />
+      <img src={icon} style={{ marginLeft: 12, marginBottom: 8, height: 18 }} />
       <Menu
         defaultSelectedKeys={[window.location.pathname]}
         mode="inline"

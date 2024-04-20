@@ -1,6 +1,6 @@
 import { Alert, Button, Card, Flex, Form, Input, Spin, Typography } from "antd";
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import logo from "/broc.png";
+import logo from "/logo.png";
 import { useAuthenticationStore } from "../authentication.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -95,7 +95,7 @@ export function LoginCard() {
   return (
     <Card style={{ maxWidth: "350px", width: "100%" }}>
       <Flex align="center" vertical gap={12} style={{ marginBottom: 20 }}>
-        <img src={logo} style={{ width: "80%" }} />
+        <img src={logo} style={{ width: "50%" }} />
         <Typography.Text style={{ margin: "-2px 0px 8px 0px" }}>
           Track your macros like pro
         </Typography.Text>

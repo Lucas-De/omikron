@@ -1,100 +1,66 @@
-import { Typography } from "antd";
-import { Typewriter } from "react-simple-typewriter";
-import { useEffect, useState } from "react";
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function randomSleep(minMs: number, maxMs: number) {
-  const lengthMs = Math.random() * (maxMs - minMs) + minMs;
-  return sleep(lengthMs);
-}
+import { Button } from "antd";
+import Typewriter from "./Typewriter";
+import logo from "/logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
-  //   const [nutrientString, setNutrientString] = useState("");
-
-  //   const iterate = async () => {
-  //     while (true) {
-  //       await typeString("Calories");
-  //       await typeString("Protein");
-  //       await typeString("Carbs");
-  //       await typeString("Fats");
-  //     }
-  //   };
-
-  //   const typeString = async (str: string) => {
-  //     let word = "";
-  //     for (const letter of str) {
-  //       await randomSleep(120, 220);
-  //       word += letter;
-  //       setNutrientString(word);
-  //       console.log(word);
-  //     }
-  //     await sleep(2000);
-
-  //     while (word.length > 0) {
-  //       await randomSleep(100, 120);
-  //       word = word.slice(0, -1);
-  //       setNutrientString(word);
-  //       console.log(word);
-  //     }
-  //     await sleep(1000);
-  //   };
-
-  //   useEffect(() => {
-  //     iterate();
-  //   }, []);
-
+  const navigate = useNavigate();
+  const goToSignIn = () => navigate("/login");
   return (
     <>
-      <div className="main">
-        <Typography.Title
-          level={1}
-          style={{
-            color: "white",
-            fontWeight: 900,
-            fontSize: 60,
-            width: 700,
-          }}
-        >
-          Track your{" "}
-          <Typewriter
-            words={["Calories", "Protein", "Carbs", "Fats"]}
-            cursorBlinking={false}
-            cursor={true}
-            cursorStyle={<span className="blinking-cursor">|</span>}
-            typeSpeed={170}
-            deleteSpeed={110}
-            delaySpeed={2500}
-            loop={true}
-          />
-        </Typography.Title>
+      <div className="wrapper">
+        <header>
+          <img src={logo} className="logo" />
+          <Button type="text" onClick={goToSignIn}>
+            Sign In
+          </Button>
+        </header>
+
+        <div className="main">
+          <Typewriter />
+        </div>
+
+        <section></section>
       </div>
 
       <style jsx>{`
-        .blinking-cursor {
-          animation: blink 1.1s infinite;
-          font-weight: 100;
+        header {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          right: 0px;
+          padding: 16px 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          background-color: black;
+          z-index: 1;
         }
-        @keyframes blink {
-          0%,
-          100% {
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
+
+        section {
+          height: 90vh;
+          width: 100vw;
+        }
+
+        .logo {
+          height: 20px;
         }
 
         .main {
-          height: 100vh;
+          height: 90vh;
           width: 100vw;
           background-color: black;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-direction: column;
+        }
+
+        .wrapper {
+          overflow-y: scroll;
+          height: 100vh;
+          width: 100vw;
         }
       `}</style>
     </>
