@@ -1,6 +1,7 @@
 import { Close as CloseIcon } from "@mui/icons-material";
 import { Button, Flex } from "antd";
 import { PropsWithChildren } from "react";
+import { color } from "../design-tokens/color";
 
 interface Props extends PropsWithChildren {
   isOpen: boolean;
@@ -27,7 +28,7 @@ export function MobileModal({
         style={{
           height: "100vh",
           width: "100vw",
-          background: "black",
+          background: color.background,
           boxSizing: "border-box",
           inset: 0,
           position: "fixed",

@@ -7,6 +7,7 @@ import {
   getPastWeekNutrientPlotData,
   getAverageDailyNutrientCounts,
 } from "../utils/formatting.util";
+import NutrientLegend from "./NutrientLegend";
 
 export function MealStats() {
   const counts = useAnalyticsStore((state) => state.dateNutrientCounts);
@@ -36,7 +37,10 @@ export function MealStats() {
           <CaloriesLineChart data={formattedMacroCounts} />
         </Card>
 
-        <Typography.Title level={4}>Macros</Typography.Title>
+        <Flex justify="space-between" align="flex-end">
+          <Typography.Title level={4}>Macros</Typography.Title>
+          <NutrientLegend />
+        </Flex>
         <Card>
           <MacrosLineChart data={formattedMacroCounts} />
         </Card>
