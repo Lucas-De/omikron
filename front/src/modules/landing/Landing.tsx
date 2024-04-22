@@ -1,7 +1,7 @@
 import { Button } from "antd";
-import Typewriter from "./Typewriter";
 import logo from "/logo.png";
 import { useNavigate } from "react-router-dom";
+import LandingSection from "./LandingSection";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -16,9 +16,7 @@ export default function Landing() {
           </Button>
         </header>
 
-        <div className="main">
-          <Typewriter />
-        </div>
+        <LandingSection />
 
         <section></section>
       </div>
@@ -47,14 +45,24 @@ export default function Landing() {
           height: 20px;
         }
 
-        .main {
-          height: 90vh;
+        .main-section {
+          height: 95vh;
           width: 100vw;
           background-color: black;
           display: flex;
           align-items: center;
-          justify-content: center;
-          flex-direction: column;
+          justify-content: space-around;
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .elevator-pitch {
+          width: 500px;
+        }
+
+        .runner {
+          height: 400px;
+          opacity: 0;
         }
 
         .wrapper {

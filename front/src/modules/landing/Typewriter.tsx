@@ -13,7 +13,7 @@ export default function Typewriter() {
     { color: "#C9914F", text: "carbs 🍩" },
     { color: "#93994B", text: "fats 🥑" },
   ].reduce<(string | number | (() => void))[]>(
-    (seq, step) => [...seq, () => setColor(step.color), step.text, 6000, ""],
+    (seq, step) => [...seq, () => setColor(step.color), step.text, 4000, ""],
     []
   );
 
@@ -55,18 +55,10 @@ export default function Typewriter() {
         .slogan {
           color: white;
           font-weight: 900;
-          font-size: 60px;
+          font-size: 40px;
           width: 650px;
           height: 50px;
-          line-height: 50px;
-        }
-
-        @media (max-width: 800px) {
-          .slogan {
-            line-height: 25px;
-            font-size: 40px;
-            width: 440px;
-          }
+          line-height: 30px;
         }
 
         @media (max-width: 500px) {
