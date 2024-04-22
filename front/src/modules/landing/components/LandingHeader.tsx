@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import logo from "/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { color } from "../../../common/design-tokens/color";
 
 export default function LandingHeader() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function LandingHeader() {
           justify-content: space-between;
           align-items: center;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          background-color: black;
+          background-color: ${color.background};
           z-index: 1;
         }
 

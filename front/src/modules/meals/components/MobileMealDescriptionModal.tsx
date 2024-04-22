@@ -2,6 +2,7 @@ import { Typography } from "antd";
 import { MobileModal } from "../../../common/components/MobileModal";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
+import { color } from "../../../common/design-tokens/color";
 
 interface Props {
   isOpen: boolean;
@@ -39,7 +40,7 @@ export function MobileMealDescriptionModal({
         style={{
           marginTop: 4,
           padding: 0,
-          background: "black",
+          background: color.background,
           border: "none",
           boxShadow: "none",
         }}
