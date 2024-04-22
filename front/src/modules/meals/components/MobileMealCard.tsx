@@ -4,7 +4,7 @@ import { MealStatusTag } from "./MealStatus";
 
 interface Props {
   meal: Meal;
-  image: string;
+  image?: string;
 }
 
 export function MobileMealCard({ meal, image }: Props) {

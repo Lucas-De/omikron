@@ -27,7 +27,7 @@ const MobileWrapper = ({ children }: PropsWithChildren) => {
 
 const PrivateWrapper = ({ children }: PropsWithChildren) => {
   const isAuthenticated = useAuthenticationStore.getState().user?.token;
-  return isAuthenticated ? children : <Navigate to="/" replace />;
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 const PublicWrapper = ({ children }: PropsWithChildren) => {

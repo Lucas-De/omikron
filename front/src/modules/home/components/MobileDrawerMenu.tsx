@@ -6,7 +6,7 @@ import {
 import { Button, Drawer, Menu } from "antd";
 import { useAuthenticationStore } from "../../authentication/authentication.store";
 import { useNavigate } from "react-router-dom";
-import icon from "/logo.png";
+import icon from "/images/logo.png";
 
 interface Props {
   isOpen: boolean;

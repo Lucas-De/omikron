@@ -1,8 +1,8 @@
 import { Carousel } from "antd";
 import { MobileMealCard } from "../../meals/components/MobileMealCard";
 import { MealStatus } from "../../meals/meals.model";
-import udon from "/udon.jpg";
-import potato from "/potato.jpg";
+import udon from "/images/udon.jpg";
+import potato from "/images/potato.jpg";
 
 const meals = [
   {

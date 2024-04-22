@@ -7,20 +7,9 @@ export default function Landing() {
       <div className="landing-page">
         <LandingHeader />
         <LandingSectionIntro />
-        <section></section>
       </div>
 
       <style jsx>{`
-        section {
-          height: 90vh;
-          width: 100vw;
-        }
-
-        .runner {
-          height: 400px;
-          opacity: 0;
-        }
-
         .landing-page {
           overflow-y: scroll;
           overflow-x: hidden;

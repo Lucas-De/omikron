@@ -1,6 +1,6 @@
 import { Alert, Button, Card, Flex, Form, Input, Spin, Typography } from "antd";
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import logo from "/logo.png";
+import logo from "/images/logo.png";
 import { useAuthenticationStore } from "../authentication.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
