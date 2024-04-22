@@ -28,6 +28,7 @@ export function LoginCard() {
   };
   const handleAuthenticateWithGoogle = async (res: CredentialResponse) => {
     setProcessingGoogle(true);
+    console.log({ res });
     if (!res.credential) return handleGoogleAuthError();
     await authenticateWithGoogle(res.credential);
     navigate("/home/meals", { replace: true });

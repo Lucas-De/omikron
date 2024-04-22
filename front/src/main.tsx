@@ -5,22 +5,23 @@ import "./globals.css";
 import { ConfigProvider, ThemeConfig, theme } from "antd";
 import App from "./App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { color } from "./common/design-tokens/color";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const antdTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
     colorPrimary: "#F46232",
-    colorBgBase: "black",
+    colorBgBase: color.background,
   },
   components: {
     Layout: {
-      bodyBg: "black",
-      headerBg: "black",
-      siderBg: "black",
+      bodyBg: color.background,
+      headerBg: color.background,
+      siderBg: color.background,
     },
     Menu: {
-      darkItemBg: "black",
+      darkItemBg: color.background,
       darkItemSelectedBg: "rgba(255,255,255,.08)",
       darkItemHoverBg: "rgba(255,255,255,.04)",
     },

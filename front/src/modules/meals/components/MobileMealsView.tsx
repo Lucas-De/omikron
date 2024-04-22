@@ -16,7 +16,7 @@ export function MobileMealsPage() {
   const addButton = <MobileMealCreationButton />;
 
   const mealList = (
-    <Space direction="vertical" size="middle">
+    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       {meals.map((meal) => (
         <MobileMealCard key={meal.id} meal={meal} />
       ))}

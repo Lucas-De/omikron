@@ -8,6 +8,7 @@ import {
 import { MenuProps, Dropdown, Button } from "antd";
 import { MealCreationModal } from "./MealCreationModal";
 import { useState } from "react";
+import { color } from "../../../common/design-tokens/color";
 
 interface Props {
   type: "mobile" | "desktop";
@@ -38,7 +39,7 @@ export function MealCreationButton({ type }: Props) {
         size="middle"
         type="primary"
         shape="circle"
-        icon={<CameraFilled color="black" style={{ color: "black" }} />}
+        icon={<CameraFilled style={{ color: color.background }} />}
       />
 
       <Button
@@ -46,7 +47,7 @@ export function MealCreationButton({ type }: Props) {
         size="middle"
         type="primary"
         shape="circle"
-        icon={<EditFilled color="black" style={{ color: "black" }} />}
+        icon={<EditFilled style={{ color: color.background }} />}
       />
     </div>
   );
