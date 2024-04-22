@@ -4,9 +4,10 @@ import { MealStatusTag } from "./MealStatus";
 
 interface Props {
   meal: Meal;
+  image?: string;
 }
 
-export function MobileMealCard({ meal }: Props) {
+export function MobileMealCard({ meal, image }: Props) {
   const nutrients = [
     {
       label: "Calories",
@@ -27,7 +28,7 @@ export function MobileMealCard({ meal }: Props) {
   ];
   return (
     <>
-      <Card style={{ padding: 0 }}>
+      <Card style={{ padding: 0 }} cover={image && <img src={image} />}>
         <Typography.Paragraph ellipsis={{ rows: 2 }}>
           {meal.description || "Unknown meal"}
         </Typography.Paragraph>
@@ -54,6 +55,10 @@ export function MobileMealCard({ meal }: Props) {
       <style jsx>{`
         .nutrients {
           padding-bottom: 16px;
+        }
+
+        .ant-card-body {
+          padding: 0px !important;
         }
       `}</style>
     </>

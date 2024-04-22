@@ -4,16 +4,16 @@ import {
   PieChartOutlined,
 } from "@ant-design/icons";
 import { Button, Drawer, Menu } from "antd";
-import { useAuthenticationStore } from "../../modules/authentication/authentication.store";
+import { useAuthenticationStore } from "../../authentication/authentication.store";
 import { useNavigate } from "react-router-dom";
-import icon from "/broc.png";
+import icon from "/images/logo.png";
 
 interface Props {
   isOpen: boolean;
   close: () => void;
 }
 
-export function DrawerMenu({ isOpen, close }: Props) {
+export function MobileDrawerMenu({ isOpen, close }: Props) {
   const navigate = useNavigate();
   const logout = useAuthenticationStore((state) => state.logout);
 
@@ -55,7 +55,7 @@ export function DrawerMenu({ isOpen, close }: Props) {
       onClose={close}
       footer={footer}
     >
-      <img src={icon} style={{ marginLeft: 12, marginBottom: 8, height: 25 }} />
+      <img src={icon} style={{ marginLeft: 12, marginBottom: 8, height: 18 }} />
       <Menu
         defaultSelectedKeys={[window.location.pathname]}
         mode="inline"
