@@ -1,6 +1,6 @@
 import { Carousel } from "antd";
-import { MobileMealCard } from "../meals/components/MobileMealCard";
-import { MealStatus } from "../meals/meals.model";
+import { MobileMealCard } from "../../meals/components/MobileMealCard";
+import { MealStatus } from "../../meals/meals.model";
 import udon from "/udon.jpg";
 import potato from "/potato.jpg";
 
@@ -31,7 +31,7 @@ const meals = [
 
 export default function MealPreview() {
   return (
-    <Carousel autoplay dots={true} autoplaySpeed={10000} effect="fade">
+    <Carousel autoplay dots={true} autoplaySpeed={8000} effect="fade">
       {meals.map((meal, index) => (
         <MobileMealCard key={index} meal={meal} image={meal.image} />
       ))}

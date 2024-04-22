@@ -19,23 +19,25 @@ export default function Typewriter() {
 
   return (
     <>
-      <h1 className="slogan">
-        <div className="first-line">Snap a pic 📷 </div>
-        <div>
-          <span>Track your </span>
-          <span style={{ color }}>
-            <TypeAnimation
-              cursor={false}
-              speed={1}
-              preRenderFirstString={true}
-              splitter={(str) => splitter.splitGraphemes(str)}
-              sequence={sequence}
-              repeat={Infinity}
-            />
-          </span>
-          <span className="blinking-cursor">|</span>
-        </div>
-      </h1>
+      <div>
+        <h1 className="slogan">
+          <div className="first-line">Snap a pic 📷 </div>
+          <div className="second-line">
+            <span>Track your </span>
+            <span style={{ color }}>
+              <TypeAnimation
+                cursor={false}
+                speed={1}
+                preRenderFirstString={true}
+                splitter={(str) => splitter.splitGraphemes(str)}
+                sequence={sequence}
+                repeat={Infinity}
+              />
+            </span>
+            <span className="blinking-cursor">|</span>
+          </div>
+        </h1>
+      </div>
 
       <style jsx>{`
         .blinking-cursor {
@@ -52,25 +54,21 @@ export default function Typewriter() {
           }
         }
 
+        .second-line {
+          white-space: nowrap;
+          line-height: 40px;
+        }
+
         .slogan {
           color: white;
           font-weight: 900;
           font-size: 40px;
-          width: 650px;
-          height: 50px;
-          line-height: 30px;
+          min-width: 520px;
+          width: 100%;
         }
 
-        @media (max-width: 500px) {
-          .slogan {
-            line-height: 16px;
-            font-size: 20px;
-            width: 250px;
-          }
-        }
-
-        .slogan .first-line {
-          margin-bottom: 20px;
+        h1 {
+          margin: 0;
         }
       `}</style>
     </>
