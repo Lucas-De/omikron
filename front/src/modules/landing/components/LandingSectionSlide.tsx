@@ -5,33 +5,25 @@ export default function LandingSectionSlide() {
   return (
     <>
       <section>
-        <div className="section-row">
-          <div className="elevator-pitch">
-            <ElevatorPitch />
-          </div>
+        <div className="elevator-pitch">
+          <ElevatorPitch />
+        </div>
 
-          <div className="meal-preview">
-            <MealPreview />
-          </div>
+        <div className="meal-preview">
+          <MealPreview />
         </div>
       </section>
 
       <style jsx>{`
         section {
-          width: 100vw;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .section-row {
           align-items: center;
           justify-content: space-evenly;
           display: flex;
           padding: 0px 80px;
           column-gap: 32px;
-          width: 100%;
+          width: 100vw;
           height: 100vh;
+          box-sizing: border-box;
         }
 
         .meal-preview {
@@ -50,7 +42,7 @@ export default function LandingSectionSlide() {
         }
 
         @media (max-width: 1405px) {
-          .section-row {
+          section {
             width: 100%;
             padding: 0px 32px;
           }
@@ -67,12 +59,9 @@ export default function LandingSectionSlide() {
         }
 
         @media (max-width: 1025px) {
-          .section-row {
-            padding: 0px 16px;
-          }
-
-          .section-row {
+          section {
             height: 85vh;
+            padding: 0px 16px;
           }
 
           .meal-preview {
