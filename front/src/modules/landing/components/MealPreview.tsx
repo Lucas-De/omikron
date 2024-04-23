@@ -139,17 +139,17 @@ export default function MealPreview() {
 
         .shadow-parent {
           overflow: hidden;
-          padding: 30px 0px;
           white-space: nowrap;
           position: relative;
-          height: 100vh;
+          height: 100%;
+          max-height: 1000px;
         }
 
         .shadow-parent:before,
         .shadow-parent:after {
           position: absolute;
           content: "";
-          height: 30%;
+          height: 20%;
           width: 100%;
           z-index: 2;
         }

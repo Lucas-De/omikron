@@ -11,9 +11,7 @@ export default function LandingSectionSlide() {
           </div>
 
           <div className="meal-preview">
-            <div className="meal-preview-content">
-              <MealPreview />
-            </div>
+            <MealPreview />
           </div>
         </div>
       </section>
@@ -34,19 +32,14 @@ export default function LandingSectionSlide() {
           padding: 0px 80px;
           column-gap: 32px;
           width: 100%;
+          height: 100vh;
         }
 
         .meal-preview {
-          width: 690px;
           height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
-        }
-
-        .meal-preview-content {
-          height: 100%;
-          overflow: hidden;
         }
 
         .elevator-pitch {
@@ -57,18 +50,48 @@ export default function LandingSectionSlide() {
           max-width: 600px;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 1405px) {
           .section-row {
             width: 100%;
-          }
-
-          .elevator-pitch {
-            height: 90vh;
+            padding: 0px 32px;
           }
 
           .elevator-pitch :global(.slogan) {
             font-size: 30px;
             width: 100%;
+            min-width: 0px;
+          }
+
+          .meal-preview :global(.slides) {
+            width: 280px;
+          }
+        }
+
+        @media (max-width: 1100px) {
+          .section-row {
+            flex-direction: column;
+          }
+
+          .elevator-pitch {
+            height: 90%;
+            flex: 1;
+          }
+
+          .meal-preview {
+            height: 500px;
+          }
+        }
+
+        @media (max-width: 700px) {
+          .section-row {
+            padding: 0px 16px;
+          }
+
+          .meal-preview {
+            display: none;
+          }
+
+          .slogan {
             min-width: 0px;
           }
         }
