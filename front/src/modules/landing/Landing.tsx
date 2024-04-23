@@ -16,6 +16,7 @@ export default function Landing() {
           overflow-x: hidden;
           height: 100vh;
           width: 100vw;
+          margin-top: 20px;
         }
       `}</style>
     </>
