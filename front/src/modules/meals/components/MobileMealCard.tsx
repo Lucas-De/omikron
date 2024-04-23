@@ -29,7 +29,10 @@ export function MobileMealCard({ meal, image }: Props) {
   return (
     <>
       <Card style={{ padding: 0 }} cover={image && <img src={image} />}>
-        <Typography.Paragraph ellipsis={{ rows: 2 }}>
+        <Typography.Paragraph
+          ellipsis={{ rows: 2 }}
+          style={{ whiteSpace: "normal" }}
+        >
           {meal.description || "Unknown meal"}
         </Typography.Paragraph>
 
