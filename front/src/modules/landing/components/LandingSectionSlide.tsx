@@ -28,7 +28,6 @@ export default function LandingSectionSlide() {
           align-items: center;
           justify-content: space-evenly;
           display: flex;
-          flex-wrap: wrap;
           padding: 0px 80px;
           column-gap: 32px;
           width: 100%;
@@ -67,32 +66,13 @@ export default function LandingSectionSlide() {
           }
         }
 
-        @media (max-width: 1100px) {
-          .section-row {
-            flex-direction: column;
-          }
-
-          .elevator-pitch {
-            height: 90%;
-            flex: 1;
-          }
-
-          .meal-preview {
-            height: 500px;
-          }
-        }
-
-        @media (max-width: 700px) {
+        @media (max-width: 1025px) {
           .section-row {
             padding: 0px 16px;
           }
 
           .meal-preview {
             display: none;
-          }
-
-          .slogan {
-            min-width: 0px;
           }
         }
       `}</style>
