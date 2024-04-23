@@ -71,6 +71,10 @@ export default function LandingSectionSlide() {
             padding: 0px 16px;
           }
 
+          .section-row {
+            height: 85vh;
+          }
+
           .meal-preview {
             display: none;
           }
