@@ -13,7 +13,7 @@ export default function Typewriter() {
     { color: "#C9914F", text: "carbs 🍩" },
     { color: "#93994B", text: "fats 🥑" },
   ].reduce<(string | number | (() => void))[]>(
-    (seq, step) => [...seq, () => setColor(step.color), step.text, 4000, ""],
+    (seq, step) => [...seq, () => setColor(step.color), step.text, 5500, ""],
     []
   );
 

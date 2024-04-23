@@ -25,9 +25,8 @@ export default function LandingHeader() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           background-color: ${color.background};
-          z-index: 1;
+          z-index: 4;
         }
 
         .logo {

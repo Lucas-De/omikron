@@ -1,12 +1,13 @@
-import LandingSectionIntro from "./components/LandingSectionIntro";
 import LandingHeader from "./components/LandingHeader";
+import LandingSectionSlide from "./components/LandingSectionSlide";
 
 export default function Landing() {
   return (
     <>
       <div className="landing-page">
         <LandingHeader />
-        <LandingSectionIntro />
+        {/* <LandingSectionIntro /> */}
+        <LandingSectionSlide />
       </div>
 
       <style jsx>{`
