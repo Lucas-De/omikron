@@ -3,23 +3,14 @@ import {
   ExecutionContext,
   HttpException,
   Injectable,
-  SetMetadata,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { verify, TokenExpiredError, JwtPayload } from 'jsonwebtoken';
 import { Reflector } from '@nestjs/core';
 import { UserRole } from '../users/entities/user.entity';
-
-export interface AuthenticatedRequest extends Request {
-  user: JwtPayload;
-}
-
-const IS_PUBLIC_KEY = 'isPublic';
-export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
-
-const IS_ADMIN_KEY = 'isAdmin';
-export const IsAdmin = () => SetMetadata(IS_ADMIN_KEY, true);
+import { IS_PUBLIC_KEY } from '../../common/decorators/is-public.decorator';
+import { IS_ADMIN_KEY } from '../../common/decorators/is-admin.decorator';
+import { AuthenticatedRequest } from '../../common/decorators/user.decorator';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
@@ -35,11 +26,14 @@ export class AuthenticationGuard implements CanActivate {
     const authHeader = req.header('Authorization');
 
     try {
-      req.user = decodeJwtAuthHeader(authHeader);
+      const { id, email, role } = decodeJwtAuthHeader(authHeader);
+      console.log('AuthenticationGuard');
+      req.user = { id, email, role };
     } catch (err) {
       handleTokenError(err);
     }
 
+    //TODO: this should be in an authorization guard instead of an authentication guard
     const isAdmin = this.reflector.get(IS_ADMIN_KEY, context.getHandler());
     if (isAdmin && req.user.role !== UserRole.Admin) {
       new HttpException('User may not access admin routes', 403);

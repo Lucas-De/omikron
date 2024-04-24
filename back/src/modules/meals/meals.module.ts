@@ -6,11 +6,13 @@ import { Meal } from './entities/meal.entity';
 import { UsersModule } from '../users/users.module';
 import { mealProducerFactory } from './meals.producer';
 import { analyzedMealConsumerFactory } from './meals.consumer';
+import { MealsPermissions } from './meals.permissions';
 
 @Module({
   controllers: [MealsController],
   providers: [
     MealsService,
+    MealsPermissions,
     {
       provide: 'MEAL_PRODUCER',
       useFactory: mealProducerFactory,
