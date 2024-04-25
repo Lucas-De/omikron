@@ -1,4 +1,5 @@
 import LandingHeader from "./components/LandingHeader";
+import LandingSectionQa from "./components/LandingSectionQa";
 import LandingSectionSlide from "./components/LandingSectionSlide";
 
 export default function Landing() {
@@ -6,8 +7,8 @@ export default function Landing() {
     <>
       <div className="landing-page">
         <LandingHeader />
-        {/* <LandingSectionIntro /> */}
         <LandingSectionSlide />
+        <LandingSectionQa />
       </div>
 
       <style jsx>{`
