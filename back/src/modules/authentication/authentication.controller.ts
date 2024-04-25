@@ -1,9 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { Public } from './authentication.guard';
 import { AuthenticationService } from './authentication.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInWithGoogleDto } from './dto/sign-in-with-google.dto';
+import { Public } from '../../common/decorators/is-public.decorator';
 
 @Controller('auth')
 export class AuthenticationController {

@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 export default function ElevatorPitch() {
   const navigate = useNavigate();
   const goToLogin = () => navigate("/login");
+  const handleLearnMore = () => {
+    document
+      .getElementById("qa-section")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <>
       <div>
@@ -20,7 +26,7 @@ export default function ElevatorPitch() {
           <Button type="primary" size="large" onClick={goToLogin}>
             Try it now!
           </Button>
-          <Button type="default" size="large">
+          <Button type="default" size="large" onClick={handleLearnMore}>
             Learn More
           </Button>
         </Flex>

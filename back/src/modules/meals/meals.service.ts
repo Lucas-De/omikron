@@ -27,7 +27,7 @@ export class MealsService {
     });
 
     const meal = await this.mealRepository.findOneBy({ id });
-    //TODO: revert transaction if cannot publish message
+    //TODO: dual write issue
     this.mealProducer.sendMeal({ ...meal, image: createMealDto.image });
     return meal;
   }
