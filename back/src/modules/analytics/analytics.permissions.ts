@@ -4,7 +4,7 @@ import { UserRole } from '../users/entities/user.entity';
 
 @Injectable()
 export class AnalyticsPermissions {
-  async canGetAnalyticsForUser(user: RequestUser, accessedUserId: number) {
+  canGetAnalyticsForUser(user: RequestUser, accessedUserId: number) {
     const isSelf = user.id === accessedUserId;
     const isAdmin = user.role === UserRole.Admin;
     if (!isSelf && !isAdmin) throw new ForbiddenException();
