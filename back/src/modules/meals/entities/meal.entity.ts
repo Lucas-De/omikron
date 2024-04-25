@@ -35,4 +35,7 @@ export class Meal {
 
   @ManyToOne(() => User, (user) => user.meals, { onDelete: 'CASCADE' })
   user: User;
+
+  @Column()
+  userId: number;
 }
