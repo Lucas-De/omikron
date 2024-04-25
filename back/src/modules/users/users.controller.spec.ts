@@ -8,7 +8,7 @@ const mockUsersService = {
   findOne: () => mockUserList[0],
 };
 
-describe('AppController', () => {
+describe('User Controller', () => {
   let usersController: UsersController;
 
   beforeEach(async () => {
