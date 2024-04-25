@@ -27,7 +27,6 @@ export class AuthenticationGuard implements CanActivate {
 
     try {
       const { id, email, role } = decodeJwtAuthHeader(authHeader);
-      console.log('AuthenticationGuard');
       req.user = { id, email, role };
     } catch (err) {
       handleTokenError(err);

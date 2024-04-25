@@ -54,7 +54,7 @@ export class AuthenticationService {
   }
 
   async generateToken(id, role, email) {
-    const token = sign({ sub: id, role, email }, process.env.JWT_SECRET, {
+    const token = sign({ id, role, email }, process.env.JWT_SECRET, {
       expiresIn: '30d',
     });
 
