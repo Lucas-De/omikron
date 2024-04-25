@@ -67,7 +67,7 @@ export default function LandingSectionQa() {
 
         <div className="collapse">
           <Collapse
-            defaultActiveKey={1}
+            defaultActiveKey={0}
             items={questionAnswers}
             ghost
             accordion
