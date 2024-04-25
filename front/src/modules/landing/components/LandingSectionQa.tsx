@@ -36,12 +36,12 @@ const questionAnswers = [
     children: (
       <>
         Omikron is not a real company but it's a real product!
-        <div style={{ fontSize: 12, marginTop: 12 }}>
-          Hi there! I'm Lucas Descause, creator of Omikron. I developed Omikron
+        <div style={{ fontSize: 13, marginTop: 12 }}>
+          Hey there, I'm Lucas Descause, creator of Omikron. I developed Omikron
           as a hobby project to track my protein intake and reach my fitness
-          goals. I'm a software engineer passionate about buidling cool
-          products. Also passionate about calisthenics and gymnastics. If you
-          have any questions or feedback, feel free to reach out to me on
+          goals. By day, I'm a software engineer who loves building cool stuff.
+          When I'm not coding, I'm all about calisthenics, climbing and
+          gymnastics. Got any questions or thoughts? Feel free to hit me up on
           <a href="https://www.linkedin.com/in/ldescause/"> LinkedIn</a>.
         </div>
       </>
