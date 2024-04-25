@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
-import { IsAdmin } from '../authentication/authentication.guard';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+import { IsAdmin } from '../../common/decorators/is-admin.decorator';
 
 @ApiTags('Users')
 @Controller('users')

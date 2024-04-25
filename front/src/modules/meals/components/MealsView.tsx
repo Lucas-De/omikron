@@ -1,32 +1,11 @@
-import { Button, Dropdown, Flex, Input, MenuProps, Typography } from "antd";
+import { Flex, Input, Typography } from "antd";
 import { useState } from "react";
-import {
-  CameraOutlined,
-  EditOutlined,
-  PlusOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import { MealCreationModal } from "./MealCreationModal";
+import { SearchOutlined } from "@ant-design/icons";
 import { MealTable } from "./MealsTable";
+import { MealCreationButton } from "./MealCreationButton";
 
 export function MealsView() {
-  const [modalMode, setModalMode] = useState<"text" | "image" | undefined>();
   const [searchQuery, setSearchQuery] = useState("");
-  const handleAddWithImage = () => setModalMode("image");
-  const handleAddWithText = () => setModalMode("text");
-
-  const items: MenuProps["items"] = [
-    {
-      key: 1,
-      icon: <CameraOutlined />,
-      label: <div onClick={handleAddWithImage}>Upload Meal Photo</div>,
-    },
-    {
-      key: 2,
-      icon: <EditOutlined />,
-      label: <div onClick={handleAddWithText}>Describe Meal</div>,
-    },
-  ];
 
   return (
     <>
@@ -41,25 +20,11 @@ export function MealsView() {
             size="large"
             prefix={<SearchOutlined />}
           />
-          <Dropdown
-            menu={{ items }}
-            placement="bottomLeft"
-            arrow
-            trigger={["click"]}
-          >
-            <Button size="large" type="primary" icon={<PlusOutlined />}>
-              Add Meal
-            </Button>
-          </Dropdown>
+          <MealCreationButton type="desktop" />
         </Flex>
 
         <MealTable searchQuery={searchQuery} />
       </Flex>
-
-      <MealCreationModal
-        mode={modalMode}
-        close={() => setModalMode(undefined)}
-      />
     </>
   );
 }

@@ -11,7 +11,8 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { MacroDataPoint } from "../analytics.model";
+import { NutrientChartDataPoint } from "../analytics.model";
+import { color } from "../../../common/design-tokens/color";
 
 ChartJS.register(
   CategoryScale,
@@ -24,24 +25,33 @@ ChartJS.register(
 );
 
 interface Props {
-  data: MacroDataPoint[];
+  data: NutrientChartDataPoint[];
 }
 
 export function MacrosLineChart(props: Props) {
   const chartData = formatData(props.data);
   return (
-    <Line
-      options={options}
-      data={chartData}
-      style={{ height: 275, width: "100%" }}
-    />
+    <div>
+      <Line
+        options={options}
+        data={chartData}
+        style={{ height: 275, width: "100%" }}
+      />
+    </div>
   );
 }
 
 export const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
-  scales: { y: { min: 0 } },
+  scales: {
+    y: {
+      min: 0,
+      ticks: {
+        callback: (value) => `${value}g`,
+      },
+    },
+  },
   plugins: {
     legend: {
       display: false,
@@ -53,29 +63,29 @@ export const options: ChartOptions<"line"> = {
   },
 };
 
-function formatData(data: MacroDataPoint[]): ChartData<"line"> {
+function formatData(data: NutrientChartDataPoint[]): ChartData<"line"> {
   return {
     labels: data.map((point) => point.label),
     datasets: [
       {
         label: "Protein",
         data: data.map((point) => point.proteins ?? 0),
-        borderColor: "#d84646",
-        backgroundColor: "#d84646",
+        borderColor: color.protein,
+        backgroundColor: color.protein,
         cubicInterpolationMode: "monotone",
       },
       {
         label: "Carbs",
         data: data.map((point) => point.carbs ?? 0),
-        borderColor: "#007aff",
-        backgroundColor: "#007aff",
+        borderColor: color.carb,
+        backgroundColor: color.carb,
         cubicInterpolationMode: "monotone",
       },
       {
         label: "Fat",
         data: data.map((point) => point.fats ?? 0),
-        borderColor: "#f19f22",
-        backgroundColor: "#f19f22",
+        borderColor: color.fat,
+        backgroundColor: color.fat,
         cubicInterpolationMode: "monotone",
       },
     ],

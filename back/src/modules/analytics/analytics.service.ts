@@ -18,7 +18,10 @@ export class AnalyticsService {
     private mealsRepository: Repository<Meal>,
   ) {}
 
-  async getMealStats(userId: number): Promise<DateNutrientCount[]> {
+  async getMealStats(
+    userId: number,
+    lookBackDays: number,
+  ): Promise<DateNutrientCount[]> {
     const rawCounts = await this.mealsRepository
       .createQueryBuilder('meal')
       .select([
@@ -29,7 +32,7 @@ export class AnalyticsService {
         "to_char(meal.date,'YYYY-MM-DD')as date",
       ])
       .where('meal.userId = :userId', { userId })
-      .andWhere('meal.date > current_date - 7')
+      .andWhere(`meal.date > current_date - ${lookBackDays}`)
       .groupBy("to_char(meal.date,'YYYY-MM-DD')")
       .getRawMany();
 
