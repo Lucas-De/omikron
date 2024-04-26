@@ -23,6 +23,13 @@ jobs:
         working-directory: ./back
   e2e-tests:
     runs-on: ubuntu-latest
+    env:
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: localhost
+      DB_DB: postgres
+      DB_PORT: 5432
+      MQ_CONNNEXTION_STRING: amqp://user:password@localhost
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
