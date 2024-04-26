@@ -30,6 +30,7 @@ jobs:
       DB_DB: postgres
       DB_PORT: 5432
       MQ_CONNNEXTION_STRING: amqp://user:password@localhost
+      JWT_SECRET: jwt-secret
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -41,7 +42,7 @@ jobs:
           npm install
           npm run build
           docker-compose up -d
-          sleep 20 # wait for 20 seconds before running the migrations
+          sleep 20 #needed to wait for the database to be ready
           npm run migration:run
           npm run db:seed
         working-directory: ./back
