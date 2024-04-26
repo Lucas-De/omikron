@@ -1,8 +1,9 @@
 import {
   CanActivate,
   ExecutionContext,
-  HttpException,
+  ForbiddenException,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { verify, TokenExpiredError, JwtPayload } from 'jsonwebtoken';
@@ -26,35 +27,36 @@ export class AuthenticationGuard implements CanActivate {
     const authHeader = req.header('Authorization');
 
     try {
-      const { id, email, role } = decodeJwtAuthHeader(authHeader);
+      const { id, email, role } = this.decodeJwtAuthHeader(authHeader);
       req.user = { id, email, role };
     } catch (err) {
-      handleTokenError(err);
+      this.handleTokenError(err);
     }
 
     //TODO: this should be in an authorization guard instead of an authentication guard
-    const isAdmin = this.reflector.get(IS_ADMIN_KEY, context.getHandler());
-    if (isAdmin && req.user.role !== UserRole.Admin) {
-      new HttpException('User may not access admin routes', 403);
+    const requireAdmin = this.reflector.get(IS_ADMIN_KEY, context.getHandler());
+    const userIsAdmin = req.user.role === UserRole.Admin;
+    if (requireAdmin && !userIsAdmin) {
+      throw new ForbiddenException('User may not access admin routes');
     }
 
     return true;
   }
-}
 
-function decodeJwtAuthHeader(authHeader: string): JwtPayload {
-  const hasBearerPrefix = authHeader && authHeader.startsWith('Bearer ');
-  if (!hasBearerPrefix) throw new Error();
+  private decodeJwtAuthHeader(authHeader: string): JwtPayload {
+    const hasBearerPrefix = authHeader && authHeader.startsWith('Bearer ');
+    if (!hasBearerPrefix) throw new Error();
 
-  const token = authHeader.split(' ')[1];
-  return verify(token, process.env.JWT_SECRET) as JwtPayload;
-}
+    const token = authHeader.split(' ')[1];
+    return verify(token, process.env.JWT_SECRET) as JwtPayload;
+  }
 
-function handleTokenError(err: Error) {
-  const message =
-    err instanceof TokenExpiredError
-      ? `Token expired at ${new Date(err.expiredAt)}`
-      : 'Invalid Token';
+  private handleTokenError(err: Error) {
+    const message =
+      err instanceof TokenExpiredError
+        ? `Token expired at ${new Date(err.expiredAt)}`
+        : 'Invalid Token';
 
-  throw new HttpException(message, 401);
+    throw new UnauthorizedException(message);
+  }
 }

@@ -1,9 +1,9 @@
-import { User, UserRole } from 'src/modules/users/entities/user.entity';
+import { User, UserRole } from '../modules/users/entities/user.entity';
 import { faker } from '@faker-js/faker';
-import { hashPassword } from 'src/common/helper/crypto.helper';
-import { Meal, MealStatus } from 'src/modules/meals/entities/meal.entity';
 import { dataSourceOptions } from './data-source';
 import { DataSource } from 'typeorm';
+import { Meal, MealStatus } from '../modules/meals/entities/meal.entity';
+import { hashPassword } from '../common/helper/crypto.helper';
 const descriptions = [
   'burger and fries',
   'spaghetti carbonara',

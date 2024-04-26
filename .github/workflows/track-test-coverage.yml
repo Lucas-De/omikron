@@ -1,0 +1,30 @@
+name: Track Test Coverage
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./back
+      - name: Run tests
+        run: npm run test:cov
+        working-directory: ./back
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          directory: ./back
+          flags: unit-tests
+          name: backend
+          token: ${{ secrets.CODECOV_TOKEN }}
