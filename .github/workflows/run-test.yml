@@ -41,6 +41,7 @@ jobs:
           npm install
           npm run build
           docker-compose up -d
+          sleep 20 # wait for 20 seconds before running the migrations
           npm run migration:run
           npm run db:seed
         working-directory: ./back
