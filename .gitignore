@@ -1,9 +1,7 @@
-back/dist
-front/dist
-back/.env
-front/.env
-back/node_modules
-front/node_modules
+**/dist
+**/.env
+**/node_modules
+**/coverage
 **/.DS_Store
-.DS_Store
+
 

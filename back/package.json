@@ -17,7 +17,11 @@
     "migration:run": "typeorm migration:run -d dist/db/data-source.js",
     "db:seed": "node dist/db/seed.js",
     "docker:build": "docker build . -t back",
-    "docker:run": "docker run -p 3000:3000 --env-file .env back"
+    "docker:run": "docker run -p 3000:3000 --env-file .env back",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -43,6 +47,7 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@golevelup/ts-jest": "^0.5.0",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/swagger": "^7.3.0",
@@ -80,7 +85,9 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|j)s",
+      "!**/*.dto.ts",
+      "!**/*.entity.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

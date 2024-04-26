@@ -1,4 +1,4 @@
-import { Meal } from 'src/modules/meals/entities/meal.entity';
+import { Meal } from '../../meals/entities/meal.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

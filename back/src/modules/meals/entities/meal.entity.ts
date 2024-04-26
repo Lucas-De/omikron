@@ -1,5 +1,5 @@
-import { User } from 'src/modules/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 export enum MealStatus {
   Pending = 'PENDING',
