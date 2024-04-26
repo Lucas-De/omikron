@@ -20,3 +20,10 @@ jobs:
       - name: Run tests
         run: npm run test:cov
         working-directory: ./back
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          directory: ./back
+          flags: unit-tests
+          name: backend
+          token: ${{ secrets.CODECOV_TOKEN }}
