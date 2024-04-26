@@ -15,12 +15,12 @@ export class MealsController {
   ) {}
 
   @Post()
-  create(
+  async create(
     @AuthUser() requestUser: RequestUser,
     @Param('userId') userId: number,
     @Body() createMealDto: CreateMealDto,
   ) {
-    this.mealPermissons.canCreateMealForUser(requestUser, userId);
+    await this.mealPermissons.canCreateMealForUser(requestUser, userId);
     return this.mealsService.create(userId, createMealDto);
   }
 
@@ -30,15 +30,17 @@ export class MealsController {
     @Param('mealId') mealId: number,
   ) {
     const meal = await this.mealsService.findOne(mealId);
-    this.mealPermissons.canGetMeal(requestUser, meal);
+    await this.mealPermissons.canGetMeal(requestUser, meal);
     return meal;
   }
 
   @Get()
-  findAll(
+  async findAll(
+    @AuthUser() requestUser: RequestUser,
     @Param('userId') userId: number,
     @Query() paginationQuery: PaginationQueryDto,
   ) {
+    await this.mealPermissons.canGetMealsForUser(requestUser, userId);
     return this.mealsService.findAll(userId, paginationQuery);
   }
 }

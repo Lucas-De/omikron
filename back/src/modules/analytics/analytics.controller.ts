@@ -12,7 +12,7 @@ export class AnalyticsController {
   ) {}
 
   @Get('/meals')
-  getMealStats(
+  async getMealStats(
     @AuthUser() requestUser: RequestUser,
     @Param('userId') userId: number,
     @Query() query: AnalyticsFilterQuery,

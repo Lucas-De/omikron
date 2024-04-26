@@ -11,7 +11,7 @@ const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const antdTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
-    colorPrimary: "#F46232",
+    colorPrimary: color.primary,
     colorBgBase: color.background,
   },
   components: {
