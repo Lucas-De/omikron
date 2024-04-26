@@ -15,14 +15,14 @@ const JWT_SECRET = 'secret';
 function contextFactory(
   type: 'expired' | 'common' | 'admin' | 'invalid' | 'no-token',
 ) {
-  const sub = 1;
+  const id = 1;
   const email = 'test@test.com';
 
   const tokens = {
-    common: sign({ sub, email, role: UserRole.Common }, JWT_SECRET),
-    admin: sign({ sub, email, role: UserRole.Admin }, JWT_SECRET),
-    invalid: sign({ sub, email, role: UserRole.Common }, 'invalid-secret'),
-    expired: sign({ sub, email, role: UserRole.Admin }, JWT_SECRET, {
+    common: sign({ id, email, role: UserRole.Common }, JWT_SECRET),
+    admin: sign({ id, email, role: UserRole.Admin }, JWT_SECRET),
+    invalid: sign({ id, email, role: UserRole.Common }, 'invalid-secret'),
+    expired: sign({ id, email, role: UserRole.Admin }, JWT_SECRET, {
       expiresIn: 0,
     }),
   };
