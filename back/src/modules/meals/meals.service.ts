@@ -6,6 +6,13 @@ import { Meal } from './entities/meal.entity';
 import { UsersService } from '../users/users.service';
 import { MealProducer } from './meals.producer';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
+type UpdatableMealProperties =
+  | 'description'
+  | 'proteins'
+  | 'calories'
+  | 'carbs'
+  | 'status'
+  | 'fats';
 
 @Injectable()
 export class MealsService {
@@ -32,8 +39,12 @@ export class MealsService {
     return meal;
   }
 
-  async update(mealId: number, meal: Partial<Meal>) {
-    await this.mealRepository
+  async update(
+    mealId: number,
+    meal: Partial<Pick<Meal, UpdatableMealProperties>>,
+  ) {
+    await this.findOne(mealId);
+    return await this.mealRepository
       .createQueryBuilder()
       .update(Meal)
       .set({ ...meal })
@@ -52,7 +63,7 @@ export class MealsService {
   }
 
   async findOne(id: number) {
-    const meal = await this.mealRepository.findOneBy({ id });
+    const meal = await this.mealRepository.findOne({ where: { id } });
     if (!meal) throw new NotFoundException(`Meal ${id} not found`);
     return meal;
   }
