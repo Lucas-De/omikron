@@ -34,7 +34,7 @@ export class Meal {
   status: MealStatus;
 
   @ManyToOne(() => User, (user) => user.meals, { onDelete: 'CASCADE' })
-  user: User;
+  user?: User;
 
   @Column()
   userId: number;
