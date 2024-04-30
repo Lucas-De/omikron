@@ -91,15 +91,15 @@ describe('Meals Permissions', () => {
       ),
     ).toBeUndefined();
 
-    expect(() =>
-      mealsPermissions.canGetMealsForUser(requestUserCommon, 10),
-    ).toThrow();
-
-    expect(() =>
+    expect(
       mealsPermissions.canGetMealsForUser(
         requestUserAdmin,
         requestUserCommon.id,
       ),
     ).toBeUndefined();
+
+    expect(() =>
+      mealsPermissions.canGetMealsForUser(requestUserCommon, 10),
+    ).toThrow();
   });
 });
