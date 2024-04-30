@@ -27,7 +27,7 @@ const meal: Meal = {
   userId: 1,
 };
 
-describe('Meal Service', () => {
+describe('Meals Service', () => {
   let mealsService: MealsService;
   let mealsRepository: DeepMocked<Repository<Meal>>;
   let usersService: DeepMocked<UsersService>;
